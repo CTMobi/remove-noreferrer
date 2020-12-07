@@ -1,0 +1,10 @@
+version: 0.0
+os: linux
+files:
+  - source: /
+    destination: /home/zerounoweb/zerounoweb.it/public_html/wp-content/plugins/remove-noreferrer
+hooks:
+  BeforeInstall:
+    - location: scripts/clean
+  AfterInstall:
+    - location: scripts/set-permissions.sh
