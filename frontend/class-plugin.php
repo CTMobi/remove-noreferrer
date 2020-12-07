@@ -297,7 +297,7 @@ class Plugin extends \Remove_Noreferrer\Base\Plugin {
 	 * @return string
 	 */
 	private function remove_target_blank( $content ) {
-		return $this->_links_processor->call( $content, 'target' );
+		return $this->links_processor->call( $content, 'target' );
 	}
 }
 
