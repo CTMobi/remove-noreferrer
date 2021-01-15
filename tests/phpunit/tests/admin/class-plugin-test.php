@@ -12,21 +12,38 @@ namespace Remove_Noreferrer\Admin;
 /**
  * Test admin/class-plugin.php
  *
- * @coversDefaultClass \Remove_Noreferrer\Admin\Plugin
- * @covers \Remove_Noreferrer\Admin\Plugin::__construct
+ * @coversDefaultClass Remove_Noreferrer\Admin\Plugin
  * @group admin
  *
  * @uses \Remove_Noreferrer\Base\Plugin
  */
 class Plugin_Test extends \WP_UnitTestCase {
 	/**
-	 * Remove_Noreferrer\Admin\Plugin instance
+	 * Plugin instance
 	 *
 	 * @since 2.0.0
 	 * @access private
-	 * @var Remove_Noreferrer\Admin\Plugin $_plugin
+	 * @var Plugin $plugin
 	 */
-	private $_plugin;
+	private $plugin;
+
+	/**
+	 * \Remove_Noreferrer\Core\Adapter stubbed instance
+	 *
+	 * @since 2.0.0
+	 * @access private
+	 * @var \Remove_Noreferrer\Core\Adapter $stubbed_adapter
+	 */
+	private $stubbed_adapter;
+
+	/**
+	 * Options_Page stubbed instance
+	 *
+	 * @since 2.0.0
+	 * @access private
+	 * @var Options_Page $stubbed_options_page
+	 */
+	private $stubbed_options_page;
 
 	/**
 	 * Prepares environment
@@ -39,7 +56,11 @@ class Plugin_Test extends \WP_UnitTestCase {
 	public function setUp() {
 		parent::setUp();
 
-		$this->_plugin = new Plugin( new \Remove_Noreferrer\Core\Options() );
+		$options                    = new \Remove_Noreferrer\Core\Options();
+		$this->stubbed_adapter      = $this->createMock( \Remove_Noreferrer\Core\Adapter::class );
+		$this->stubbed_options_page = $this->createMock( Options_Page::class );
+
+		$this->plugin = new Plugin( $options, $this->stubbed_adapter, $this->stubbed_options_page );
 	}
 
 	/**
@@ -66,7 +87,7 @@ class Plugin_Test extends \WP_UnitTestCase {
 	 * @return void
 	 */
 	public function test_plugin_extended_from_base_plugin() {
-		$this->assertInstanceOf( 'Remove_Noreferrer\Base\Plugin', $this->_plugin );
+		$this->assertInstanceOf( '\Remove_Noreferrer\Base\Plugin', $this->plugin );
 	}
 
 	/**
@@ -78,7 +99,7 @@ class Plugin_Test extends \WP_UnitTestCase {
 	 * @return void
 	 */
 	public function test_has_grn_parent_slug_constant() {
-		$this->assertSame( 'options-general.php', $this->_plugin::GRN_PARENT_SLUG );
+		$this->assertSame( 'options-general.php', Plugin::GRN_PARENT_SLUG );
 	}
 
 	/**
@@ -90,7 +111,7 @@ class Plugin_Test extends \WP_UnitTestCase {
 	 * @return void
 	 */
 	public function test_has_grn_menu_slug_constant() {
-		$this->assertSame( 'remove_noreferrer', $this->_plugin::GRN_MENU_SLUG );
+		$this->assertSame( 'remove_noreferrer', Plugin::GRN_MENU_SLUG );
 	}
 
 	/**
@@ -102,7 +123,7 @@ class Plugin_Test extends \WP_UnitTestCase {
 	 * @return void
 	 */
 	public function test_has_grn_nonce_value_constant() {
-		$this->assertSame( 'gruz0_remove_noreferrer_nonce', $this->_plugin::GRN_NONCE_VALUE );
+		$this->assertSame( 'gruz0_remove_noreferrer_nonce', Plugin::GRN_NONCE_VALUE );
 	}
 
 	/**
@@ -114,83 +135,71 @@ class Plugin_Test extends \WP_UnitTestCase {
 	 * @return void
 	 */
 	public function test_has_grn_nonce_action_constant() {
-		$this->assertSame( 'remove_noreferrer', $this->_plugin::GRN_NONCE_ACTION );
+		$this->assertSame( 'remove_noreferrer', Plugin::GRN_NONCE_ACTION );
 	}
 
 	/**
 	 * @covers ::__construct
+	 * @covers ::add_hooks
 	 *
 	 * @since 2.0.0
 	 * @access public
 	 *
 	 * @return void
 	 */
-	public function test_construct_has_init_action() {
-		$this->assertEquals( 10, has_action( 'init', array( $this->_plugin, 'init' ) ) );
-	}
-
-	/**
-	 * @covers ::__construct
-	 *
-	 * @since 2.0.0
-	 * @access public
-	 *
-	 * @return void
-	 */
-	public function test_construct_did_remove_noreferrer_admin_plugin_loaded_action() {
+	public function test_did_remove_noreferrer_admin_plugin_loaded_action() {
 		$this->assertGreaterThan( 0, did_action( 'remove_noreferrer_admin_plugin_loaded' ) );
 	}
 
 	/**
-	 * @covers ::init
+	 * @covers ::__construct
+	 * @covers ::add_hooks
 	 *
 	 * @since 2.0.0
 	 * @access public
 	 *
 	 * @return void
 	 */
-	public function test_init_has_admin_menu_action() {
-		$this->_plugin->init();
-
-		$this->assertEquals( 10, has_action( 'admin_menu', array( $this->_plugin, 'add_menu' ) ) );
+	public function test_did_remove_noreferrer_admin_plugin_hooks_added_action() {
+		$this->assertGreaterThan( 0, did_action( 'remove_noreferrer_admin_plugin_hooks_added' ) );
 	}
 
 	/**
-	 * @covers ::init
+	 * @covers ::__construct
+	 * @covers ::add_hooks
 	 *
 	 * @since 2.0.0
 	 * @access public
 	 *
 	 * @return void
 	 */
-	public function test_init_has_admin_post_remove_noreferrer_update_options_action() {
-		$this->_plugin->init();
+	public function test_has_admin_menu_action() {
+		$this->assertEquals( 10, has_action( 'admin_menu', array( $this->plugin, 'add_menu' ) ) );
+	}
 
+	/**
+	 * @covers ::__construct
+	 * @covers ::add_hooks
+	 *
+	 * @since 2.0.0
+	 * @access public
+	 *
+	 * @return void
+	 */
+	public function test_has_admin_post_remove_noreferrer_update_options_action() {
 		$this->assertEquals(
 			10,
 			has_action(
 				'admin_post_remove_noreferrer_update_options',
-				array( $this->_plugin, 'update_options' )
+				array( $this->plugin, 'update_options' )
 			)
 		);
 	}
 
 	/**
-	 * @covers ::init
-	 *
-	 * @since 2.0.0
-	 * @access public
-	 *
-	 * @return void
-	 */
-	public function test_init_did_remove_noreferrer_admin_plugin_initialized_action() {
-		$this->_plugin->init();
-
-		$this->assertGreaterThan( 0, did_action( 'remove_noreferrer_admin_plugin_initialized' ) );
-	}
-
-	/**
+	 * @covers ::__construct
 	 * @covers ::add_menu
+	 * @covers ::add_hooks
 	 *
 	 * @since 2.0.0
 	 * @access public
@@ -209,9 +218,9 @@ class Plugin_Test extends \WP_UnitTestCase {
 		wp_set_current_user( $admin_user );
 		set_current_screen( 'dashboard' );
 
-		$this->_plugin->add_menu();
+		$this->plugin->add_menu();
 
-		list( $menu_title, $capability, $menu_slug, $page_title ) = $submenu[ $this->_plugin::GRN_PARENT_SLUG ][0];
+		list( $menu_title, $capability, $menu_slug, $page_title ) = $submenu[ Plugin::GRN_PARENT_SLUG ][0];
 
 		$this->assertEquals( 'Remove Noreferrer', $menu_title );
 		$this->assertEquals( 'manage_options', $capability );
@@ -222,7 +231,9 @@ class Plugin_Test extends \WP_UnitTestCase {
 	}
 
 	/**
+	 * @covers ::__construct
 	 * @covers ::add_menu
+	 * @covers ::add_hooks
 	 *
 	 * @since 2.0.0
 	 * @access public
@@ -241,7 +252,7 @@ class Plugin_Test extends \WP_UnitTestCase {
 		wp_set_current_user( $editor_user );
 		set_current_screen( 'dashboard' );
 
-		$this->_plugin->add_menu();
+		$this->plugin->add_menu();
 
 		$this->assertEmpty( $submenu );
 
@@ -249,7 +260,9 @@ class Plugin_Test extends \WP_UnitTestCase {
 	}
 
 	/**
+	 * @covers ::__construct
 	 * @covers ::update_options
+	 * @covers ::add_hooks
 	 *
 	 * @since 2.0.0
 	 * @access public
@@ -263,13 +276,15 @@ class Plugin_Test extends \WP_UnitTestCase {
 		set_current_screen( 'dashboard' );
 
 		$this->setExpectedException( '\WPDieException', 'Unauthorized user' );
-		$this->_plugin->update_options();
+		$this->plugin->update_options();
 
 		wp_delete_user( $editor_user );
 	}
 
 	/**
+	 * @covers ::__construct
 	 * @covers ::update_options
+	 * @covers ::add_hooks
 	 *
 	 * @since 2.0.0
 	 * @access public
@@ -283,13 +298,15 @@ class Plugin_Test extends \WP_UnitTestCase {
 		set_current_screen( 'dashboard' );
 
 		$this->setExpectedException( '\WPDieException', 'Nonce must be set' );
-		$this->_plugin->update_options();
+		$this->plugin->update_options();
 
 		wp_delete_user( $admin_user );
 	}
 
 	/**
+	 * @covers ::__construct
 	 * @covers ::update_options
+	 * @covers ::add_hooks
 	 *
 	 * @since 2.0.0
 	 * @access public
@@ -305,9 +322,125 @@ class Plugin_Test extends \WP_UnitTestCase {
 		$_POST[ Plugin::GRN_NONCE_VALUE ] = 'invalid';
 
 		$this->setExpectedException( '\WPDieException', 'Invalid nonce' );
-		$this->_plugin->update_options();
+		$this->plugin->update_options();
 
 		wp_delete_user( $admin_user );
+	}
+
+	/**
+	 * @covers ::__construct
+	 * @covers ::update_options
+	 * @covers ::add_hooks
+	 *
+	 * @since 2.0.0
+	 * @access public
+	 *
+	 * @return void
+	 */
+	public function test_update_options_throws_exception_if_no_options_given() {
+		$this->stubbed_adapter->method( 'wp_verify_nonce' )->willReturn( true );
+
+		$admin_user = self::factory()->user->create( array( 'role' => 'administrator' ) );
+
+		wp_set_current_user( $admin_user );
+		set_current_screen( 'dashboard' );
+
+		$_POST[ Plugin::GRN_NONCE_VALUE ] = 'valid';
+
+		$this->setExpectedException( '\WPDieException', 'No options given' );
+		$this->plugin->update_options();
+
+		wp_delete_user( $admin_user );
+	}
+
+	/**
+	 * @covers ::__construct
+	 * @covers ::update_options
+	 * @covers ::add_hooks
+	 *
+	 * @since 2.0.0
+	 * @access public
+	 *
+	 * @return void
+	 */
+	public function test_update_options_throws_exception_if_empty_options_given() {
+		$this->stubbed_adapter->method( 'wp_verify_nonce' )->willReturn( true );
+
+		$admin_user = self::factory()->user->create( array( 'role' => 'administrator' ) );
+
+		wp_set_current_user( $admin_user );
+		set_current_screen( 'dashboard' );
+
+		$_POST[ Plugin::GRN_NONCE_VALUE ] = 'valid';
+		$_POST['remove_noreferrer']       = array();
+
+		$this->setExpectedException( '\WPDieException', 'No options given' );
+		$this->plugin->update_options();
+
+		wp_delete_user( $admin_user );
+	}
+
+	/**
+	 * @covers ::__construct
+	 * @covers ::update_options
+	 * @covers ::add_hooks
+	 * @covers ::get_current_tab
+	 * @covers ::options_validator
+	 * @covers ::validate_options
+	 * @covers \Remove_Noreferrer\Admin\Options_Validator::call
+	 * @covers \Remove_Noreferrer\Admin\Options_Validator::validate_where_should_the_plugin_work
+	 * @covers \Remove_Noreferrer\Core\Options::get_default_options
+	 * @covers \Remove_Noreferrer\Core\Options::get_options
+	 * @covers \Remove_Noreferrer\Core\Options::set_options
+	 * @covers \Remove_Noreferrer\Core\Options::update_options
+	 *
+	 * @since 2.0.0
+	 * @access public
+	 *
+	 * @return void
+	 */
+	public function test_update_options_did_remove_noreferrer_options_updated_action() {
+		$this->stubbed_adapter->method( 'wp_verify_nonce' )->willReturn( true );
+
+		$admin_user = self::factory()->user->create( array( 'role' => 'administrator' ) );
+
+		wp_set_current_user( $admin_user );
+		set_current_screen( 'dashboard' );
+
+		$_POST[ Plugin::GRN_NONCE_VALUE ] = 'valid';
+		$_POST['remove_noreferrer']       = array( 'grn_tab' => 'general' );
+
+		$this->plugin->update_options();
+
+		$this->assertGreaterThan( 0, did_action( 'remove_noreferrer_options_updated' ) );
+
+		wp_delete_user( $admin_user );
+	}
+
+	/**
+	 * @covers ::render_options_page
+	 * @covers ::__construct
+	 * @covers ::add_hooks
+	 * @covers ::get_current_tab
+	 * @covers \Remove_Noreferrer\Core\Options::get_default_options
+	 * @covers \Remove_Noreferrer\Core\Options::get_options
+	 * @covers \Remove_Noreferrer\Core\Options::set_options
+	 *
+	 * @since 2.0.0
+	 * @access public
+	 *
+	 * @return void
+	 */
+	public function test_render_options_page() {
+		$this->stubbed_options_page->method( 'render' )->willReturn( 'content' );
+
+		ob_start();
+
+		$this->plugin->render_options_page();
+
+		$result = ob_get_clean();
+
+		$this->assertEquals( 'content', $result );
 	}
 }
 

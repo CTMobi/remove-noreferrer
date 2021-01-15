@@ -1,4 +1,4 @@
-.PHONY: help dockerize shell install_linters lint test coverage e2e e2e_single zip install_wordpress_dev dockerize_test_database shutdown_test_database wait_for_database
+.PHONY: help dockerize shell setup seed lint test coverage e2e e2e_single zip install_wordpress_dev dockerize_test_database shutdown_test_database wait_for_database fix_permissions stop clean
 
 PLUGIN_VERSION=$(shell grep -r ' \* Version:' remove-noreferrer.php | egrep -o '([0-9]{1,}\.)+[0-9]{1,}')
 
@@ -6,7 +6,8 @@ help:
 	@echo 'Available targets:'
 	@echo '  make dockerize'
 	@echo '  make shell'
-	@echo '  make install_linters'
+	@echo '  make setup'
+	@echo '  make seed'
 	@echo '  make lint'
 	@echo '  make test'
 	@echo '  make coverage'
@@ -17,25 +18,35 @@ help:
 	@echo '  make dockerize_test_database'
 	@echo '  make shutdown_test_database'
 	@echo '  make wait_for_database'
+	@echo '  make fix_permissions'
+	@echo '  make stop'
+	@echo '  make clean'
 
-dockerize:
-	docker-compose down
-	docker-compose up --build
+dockerize: stop
+	docker-compose up --build -d
+	docker-compose exec wordpress /docker/install-wp-cli.sh
+	docker-compose exec wordpress /docker/activate-debug.sh
+	docker-compose exec wordpress /docker/touch-debug-log.sh
+	docker-compose exec wordpress /docker/fix-permissions.sh
+	docker-compose logs -f
 
 shell:
 	docker-compose exec wordpress bash
 
-install_linters:
-	bin/install_linters.sh
+setup:
+	bin/setup.sh
+
+seed:
+	bin/seed.sh
 
 lint:
 	bin/lint.sh
 
 test:
-	composer test
+	XDEBUG_MODE=coverage composer test
 
 coverage:
-	composer coverage
+	XDEBUG_MODE=coverage composer coverage
 	open build/coverage/index.html
 
 e2e: zip
@@ -58,3 +69,14 @@ shutdown_test_database:
 
 wait_for_database:
 	tests/bin/wait_for_database.sh
+
+fix_permissions:
+	docker-compose exec wordpress /docker/fix-permissions.sh
+
+stop:
+	docker-compose down
+
+clean: stop
+	docker-compose down
+	docker-compose rm -f
+	rm -rf .data

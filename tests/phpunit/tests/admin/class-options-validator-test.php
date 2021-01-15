@@ -12,18 +12,18 @@ namespace Remove_Noreferrer\Admin;
 /**
  * Test admin/class-options-validator.php
  *
- * @coversDefaultClass \Remove_Noreferrer\Admin\Options_Validator
+ * @coversDefaultClass Remove_Noreferrer\Admin\Options_Validator
  * @group admin
  */
 class Options_Validator_Test extends \PHPUnit\Framework\TestCase {
 	/**
-	 * Remove_Noreferrer\Admin\Options_Validator instance
+	 * Options_Validator instance
 	 *
 	 * @since 2.0.0
 	 * @access private
-	 * @var Remove_Noreferrer\Admin\Options_Validator $_validator
+	 * @var Options_Validator $validator
 	 */
-	private $_validator;
+	private $validator;
 
 	/**
 	 * Prepares environment
@@ -33,7 +33,7 @@ class Options_Validator_Test extends \PHPUnit\Framework\TestCase {
 	protected function setUp() {
 		parent::setUp();
 
-		$this->_validator = new Options_Validator();
+		$this->validator = new Options_Validator();
 	}
 
 	/**
@@ -41,6 +41,7 @@ class Options_Validator_Test extends \PHPUnit\Framework\TestCase {
 	 *
 	 * @covers ::call
 	 * @covers ::validate_where_should_the_plugin_work
+	 * @covers ::allowed_values
 	 *
 	 * @since 2.0.0
 	 * @access public
@@ -51,7 +52,7 @@ class Options_Validator_Test extends \PHPUnit\Framework\TestCase {
 	 * @return void
 	 */
 	public function test_call_validates_where_should_the_plugin_work( $input, $expected ) {
-		$result = $this->_validator->call( $input );
+		$result = $this->validator->call( $input );
 
 		$this->assertSame( $expected, $result );
 	}
@@ -74,6 +75,13 @@ class Options_Validator_Test extends \PHPUnit\Framework\TestCase {
 			'key "where_should_the_plugin_work" not found' => array(
 				array(),
 				array(),
+			),
+			'pass empty array' => array(
+				array(
+					'grn_tab' => 'general',
+					GRN_WHERE_SHOULD_THE_PLUGIN_WORK_KEY => array(),
+				),
+				array( GRN_WHERE_SHOULD_THE_PLUGIN_WORK_KEY => array() ),
 			),
 			"pass string instead of array's values" => array(
 				array(
@@ -175,7 +183,7 @@ class Options_Validator_Test extends \PHPUnit\Framework\TestCase {
 	 * @return void
 	 */
 	public function test_call_validates_remove_settings_on_uninstall( $input, $expected ) {
-		$result = $this->_validator->call( $input );
+		$result = $this->validator->call( $input );
 
 		$this->assertSame( $expected, $result );
 	}

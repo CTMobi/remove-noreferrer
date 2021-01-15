@@ -30,7 +30,7 @@ class Links_Processor {
 	 * @return string
 	 */
 	public static function call( $input, $attribute_to_remove = 'noreferrer' ) {
-		if ( ! self::is_links_found( $input ) ) {
+		if ( ! self::are_links_found( $input ) ) {
 			return $input;
 		}
 
@@ -46,7 +46,7 @@ class Links_Processor {
 	}
 
 	/**
-	 * Checks is links found
+	 * Checks are links found
 	 *
 	 * @since 2.0.0
 	 * @access private
@@ -56,7 +56,7 @@ class Links_Processor {
 	 *
 	 * @return bool
 	 */
-	private static function is_links_found( $input ) {
+	private static function are_links_found( $input ) {
 		return ! ( false === stripos( $input, '<a ' ) );
 	}
 

@@ -20,9 +20,9 @@ abstract class Plugin {
 	 *
 	 * @since 2.0.0
 	 * @access private
-	 * @var string $_stringified_class
+	 * @var string $stringified_class
 	 */
-	private $_stringified_class;
+	private $stringified_class;
 
 	/**
 	 * Constructor
@@ -31,21 +31,23 @@ abstract class Plugin {
 	 * @access public
 	 */
 	public function __construct() {
-		$this->_stringified_class = $this->stringify_called_class();
+		$this->stringified_class = $this->stringify_called_class();
 
-		add_action( 'init', array( & $this, 'init' ) );
-
-		do_action( $this->format_action( 'loaded' ) );
+		$this->do_action( 'loaded' );
 	}
 
 	/**
-	 * Initializes plugin
+	 * Fires required action depends on plugin's instance name
 	 *
 	 * @since 2.0.0
-	 * @access public
+	 * @access private
+	 *
+	 * @param string $name Action name.
 	 */
-	public function init() {
-		do_action( $this->format_action( 'initialized' ) );
+	protected function do_action( $name ) {
+		// phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.DynamicHooknameFound
+		do_action( $this->format_action( $name ) );
+		// phpcs:enable WordPress.NamingConventions.PrefixAllGlobals.DynamicHooknameFound
 	}
 
 	/**
@@ -71,7 +73,7 @@ abstract class Plugin {
 	 * @return string
 	 */
 	private function format_action( $suffix ) {
-		return sprintf( '%s_%s', $this->_stringified_class, $suffix );
+		return sprintf( '%s_%s', $this->stringified_class, $suffix );
 	}
 }
 

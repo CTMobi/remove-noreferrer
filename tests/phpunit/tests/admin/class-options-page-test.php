@@ -12,7 +12,7 @@ namespace Remove_Noreferrer\Admin;
 /**
  * Test admin/class-options-page.php
  *
- * @coversDefaultClass \Remove_Noreferrer\Admin\Options_Page
+ * @coversDefaultClass Remove_Noreferrer\Admin\Options_Page
  * @group admin
  */
 class Options_Page_Test extends \WP_UnitTestCase {
@@ -21,18 +21,18 @@ class Options_Page_Test extends \WP_UnitTestCase {
 	 *
 	 * @since 2.0.0
 	 * @access private
-	 * @var \Remove_Noreferrer\Admin\Options_Page $_options_page
+	 * @var Options_Page $options_page
 	 */
-	private $_options_page;
+	private $options_page;
 
 	/**
 	 * Options
 	 *
 	 * @since 2.0.0
 	 * @access private
-	 * @var array $_options
+	 * @var array $options
 	 */
-	private $_options;
+	private $options;
 
 	/**
 	 * Prepares environment
@@ -45,7 +45,7 @@ class Options_Page_Test extends \WP_UnitTestCase {
 	public function setUp() {
 		parent::setUp();
 
-		$this->_options = array(
+		$this->options = array(
 			'where_should_the_plugin_work' => array(
 				'post',
 				'posts_page',
@@ -57,11 +57,19 @@ class Options_Page_Test extends \WP_UnitTestCase {
 			'remove_settings_on_uninstall' => false,
 		);
 
-		$this->_options_page = new Options_Page();
+		$this->options_page = new Options_Page();
 	}
 
 	/**
 	 * @covers ::render_tabs
+	 * @covers ::render
+	 * @covers ::render_action
+	 * @covers ::render_buy_me_a_coffee
+	 * @covers ::render_checkbox_where_should_the_plugin_work
+	 * @covers ::render_form
+	 * @covers ::render_general_tab
+	 * @covers ::render_hidden_grn_tab
+	 * @covers ::render_nonce
 	 *
 	 * @since 2.0.0
 	 * @access public
@@ -69,7 +77,7 @@ class Options_Page_Test extends \WP_UnitTestCase {
 	 * @return void
 	 */
 	public function test_render_tabs_has_valid_tabs() {
-		$content = $this->_options_page->render( $this->_options, 'general' );
+		$content = $this->options_page->render( $this->options, 'general' );
 
 		$internal_errors = libxml_use_internal_errors( true );
 
@@ -97,6 +105,14 @@ class Options_Page_Test extends \WP_UnitTestCase {
 
 	/**
 	 * @covers ::render
+	 * @covers ::render_action
+	 * @covers ::render_buy_me_a_coffee
+	 * @covers ::render_checkbox_where_should_the_plugin_work
+	 * @covers ::render_form
+	 * @covers ::render_general_tab
+	 * @covers ::render_hidden_grn_tab
+	 * @covers ::render_nonce
+	 * @covers ::render_tabs
 	 *
 	 * @since 2.0.0
 	 * @access public
@@ -104,7 +120,7 @@ class Options_Page_Test extends \WP_UnitTestCase {
 	 * @return void
 	 */
 	public function test_render_h1_tag() {
-		$content = $this->_options_page->render( $this->_options, 'general' );
+		$content = $this->options_page->render( $this->options, 'general' );
 
 		$this->assertTrue( false !== preg_match( '/<h1>Remove Noreferrer<\/h1>/', $content ) );
 	}
@@ -112,6 +128,13 @@ class Options_Page_Test extends \WP_UnitTestCase {
 	/**
 	 * @covers ::render_nonce
 	 * @covers ::render_general_tab
+	 * @covers ::render
+	 * @covers ::render_action
+	 * @covers ::render_buy_me_a_coffee
+	 * @covers ::render_checkbox_where_should_the_plugin_work
+	 * @covers ::render_form
+	 * @covers ::render_hidden_grn_tab
+	 * @covers ::render_tabs
 	 *
 	 * @since 2.0.0
 	 * @access public
@@ -119,7 +142,7 @@ class Options_Page_Test extends \WP_UnitTestCase {
 	 * @return void
 	 */
 	public function test_render_general_tab_has_hidden_nonce_field() {
-		$content = $this->_options_page->render( $this->_options, 'general' );
+		$content = $this->options_page->render( $this->options, 'general' );
 
 		$nonce = 'gruz0_remove_noreferrer_nonce';
 		$found = preg_match( '/<input type="hidden" id="' . $nonce . '" name="' . $nonce . '" value=".+" \/>/', $content );
@@ -130,6 +153,13 @@ class Options_Page_Test extends \WP_UnitTestCase {
 	/**
 	 * @covers ::render_action
 	 * @covers ::render_general_tab
+	 * @covers ::render
+	 * @covers ::render_buy_me_a_coffee
+	 * @covers ::render_checkbox_where_should_the_plugin_work
+	 * @covers ::render_form
+	 * @covers ::render_hidden_grn_tab
+	 * @covers ::render_nonce
+	 * @covers ::render_tabs
 	 *
 	 * @since 2.0.0
 	 * @access public
@@ -137,7 +167,7 @@ class Options_Page_Test extends \WP_UnitTestCase {
 	 * @return void
 	 */
 	public function test_render_general_tab_has_hidden_action_field() {
-		$content = $this->_options_page->render( $this->_options, 'general' );
+		$content = $this->options_page->render( $this->options, 'general' );
 
 		$found = preg_match( '/<input type="hidden" name="action" value="remove_noreferrer_update_options" \/>/', $content );
 
@@ -147,6 +177,13 @@ class Options_Page_Test extends \WP_UnitTestCase {
 	/**
 	 * @covers ::render_hidden_grn_tab
 	 * @covers ::render_general_tab
+	 * @covers ::render
+	 * @covers ::render_action
+	 * @covers ::render_buy_me_a_coffee
+	 * @covers ::render_checkbox_where_should_the_plugin_work
+	 * @covers ::render_form
+	 * @covers ::render_nonce
+	 * @covers ::render_tabs
 	 *
 	 * @since 2.0.0
 	 * @access public
@@ -154,7 +191,7 @@ class Options_Page_Test extends \WP_UnitTestCase {
 	 * @return void
 	 */
 	public function test_render_general_tab_has_hidden_grn_tab_field() {
-		$content = $this->_options_page->render( $this->_options, 'general' );
+		$content = $this->options_page->render( $this->options, 'general' );
 
 		$found = preg_match( '/<input type="hidden" name="remove_noreferrer\[grn_tab\]" value="general" \/>/', $content );
 
@@ -164,6 +201,13 @@ class Options_Page_Test extends \WP_UnitTestCase {
 	/**
 	 * @covers ::render_general_tab
 	 * @covers ::render_checkbox_where_should_the_plugin_work
+	 * @covers ::render
+	 * @covers ::render_action
+	 * @covers ::render_buy_me_a_coffee
+	 * @covers ::render_form
+	 * @covers ::render_hidden_grn_tab
+	 * @covers ::render_nonce
+	 * @covers ::render_tabs
 	 *
 	 * @since 2.0.0
 	 * @access public
@@ -171,7 +215,7 @@ class Options_Page_Test extends \WP_UnitTestCase {
 	 * @return void
 	 */
 	public function test_render_general_tab_has_valid_checkboxes_count() {
-		$content = $this->_options_page->render( $this->_options, 'general' );
+		$content = $this->options_page->render( $this->options, 'general' );
 
 		$matches = array();
 
@@ -287,6 +331,13 @@ class Options_Page_Test extends \WP_UnitTestCase {
 	/**
 	 * @covers ::render_nonce
 	 * @covers ::render_additional_settings_tab
+	 * @covers ::render
+	 * @covers ::render_action
+	 * @covers ::render_buy_me_a_coffee
+	 * @covers ::render_checkbox_remove_settings_on_uninstall
+	 * @covers ::render_form
+	 * @covers ::render_hidden_grn_tab
+	 * @covers ::render_tabs
 	 *
 	 * @since 2.0.0
 	 * @access public
@@ -294,7 +345,7 @@ class Options_Page_Test extends \WP_UnitTestCase {
 	 * @return void
 	 */
 	public function test_render_additional_settings_tab_has_hidden_nonce_field() {
-		$content = $this->_options_page->render( $this->_options, 'additional-settings' );
+		$content = $this->options_page->render( $this->options, 'additional-settings' );
 
 		$nonce = 'gruz0_remove_noreferrer_nonce';
 		$found = preg_match( '/<input type="hidden" id="' . $nonce . '" name="' . $nonce . '" value=".+" \/>/', $content );
@@ -305,6 +356,13 @@ class Options_Page_Test extends \WP_UnitTestCase {
 	/**
 	 * @covers ::render_action
 	 * @covers ::render_additional_settings_tab
+	 * @covers ::render
+	 * @covers ::render_buy_me_a_coffee
+	 * @covers ::render_checkbox_remove_settings_on_uninstall
+	 * @covers ::render_form
+	 * @covers ::render_hidden_grn_tab
+	 * @covers ::render_nonce
+	 * @covers ::render_tabs
 	 *
 	 * @since 2.0.0
 	 * @access public
@@ -312,7 +370,7 @@ class Options_Page_Test extends \WP_UnitTestCase {
 	 * @return void
 	 */
 	public function test_render_additional_settings_tab_has_hidden_action_field() {
-		$content = $this->_options_page->render( $this->_options, 'additional-settings' );
+		$content = $this->options_page->render( $this->options, 'additional-settings' );
 
 		$found = preg_match( '/<input type="hidden" name="action" value="remove_noreferrer_update_options" \/>/', $content );
 
@@ -322,6 +380,14 @@ class Options_Page_Test extends \WP_UnitTestCase {
 	/**
 	 * @covers ::render_hidden_grn_tab
 	 * @covers ::render_additional_settings_tab
+	 * @covers ::render
+	 * @covers ::render_action
+	 * @covers ::render_buy_me_a_coffee
+	 * @covers ::render_checkbox_remove_settings_on_uninstall
+	 * @covers ::render_form
+	 * @covers ::render_hidden_grn_tab
+	 * @covers ::render_tabs
+	 * @covers ::render_nonce
 	 *
 	 * @since 2.0.0
 	 * @access public
@@ -329,7 +395,7 @@ class Options_Page_Test extends \WP_UnitTestCase {
 	 * @return void
 	 */
 	public function test_render_additional_settings_tab_has_hidden_grn_tab_field() {
-		$content = $this->_options_page->render( $this->_options, 'additional-settings' );
+		$content = $this->options_page->render( $this->options, 'additional-settings' );
 
 		$found = preg_match( '/<input type="hidden" name="remove_noreferrer\[grn_tab\]" value="additional-settings" \/>/', $content );
 
@@ -339,6 +405,13 @@ class Options_Page_Test extends \WP_UnitTestCase {
 	/**
 	 * @covers ::render_additional_settings_tab
 	 * @covers ::render_checkbox_remove_settings_on_uninstall
+	 * @covers ::render
+	 * @covers ::render_action
+	 * @covers ::render_buy_me_a_coffee
+	 * @covers ::render_form
+	 * @covers ::render_hidden_grn_tab
+	 * @covers ::render_nonce
+	 * @covers ::render_tabs
 	 *
 	 * @since 2.0.0
 	 * @access public
@@ -346,7 +419,7 @@ class Options_Page_Test extends \WP_UnitTestCase {
 	 * @return void
 	 */
 	public function test_render_additional_settings_tab_has_valid_checkboxes_count() {
-		$content = $this->_options_page->render( $this->_options, 'additional-settings' );
+		$content = $this->options_page->render( $this->options, 'additional-settings' );
 
 		$matches = array();
 
@@ -362,7 +435,6 @@ class Options_Page_Test extends \WP_UnitTestCase {
 	 *
 	 * @since 2.0.0
 	 * @access public
-	 * @group current
 	 *
 	 * @param mixed $input Function's result.
 	 * @param int   $expected Expected.
@@ -386,6 +458,25 @@ class Options_Page_Test extends \WP_UnitTestCase {
 			'checked remove settings'   => array( $this->find_checked_checkbox_remove_settings_on_uninstall(), 1 ),
 			'unchecked remove settings' => array( $this->find_unchecked_checkbox_remove_settings_on_uninstall(), 1 ),
 		);
+	}
+
+	/**
+	 * @covers ::render
+	 * @covers ::render_tabs
+	 * @covers ::render_support_tab
+	 * @covers ::render_buy_me_a_coffee
+	 *
+	 * @since 2.0.0
+	 * @access public
+	 *
+	 * @return void
+	 */
+	public function test_render_support_tab() {
+		$content = $this->options_page->render( $this->options, 'support' );
+
+		$found = preg_match( '/alexander@kadyrov.dev/', $content );
+
+		$this->assertEquals( 1, $found );
 	}
 
 	/**

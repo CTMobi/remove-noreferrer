@@ -13,20 +13,12 @@
 
 ### 🏠 [Homepage](https://wordpress.org/plugins/remove-noreferrer/)
 
-## Run tests
-
-```sh
-make dockerize_test_database
-make install_wordpress_dev
-make test
-```
-
 ## Author
 
 👤 **Alexander Kadyrov**
 
 * Website: https://kadyrov.dev/
-* Github: [@gruz0](https://github.com/gruz0)
+* GitHub: [@gruz0](https://github.com/gruz0)
 * LinkedIn: [@alexanderkadyrov](https://linkedin.com/in/alexanderkadyrov)
 
 ## 🤝 Contributing
@@ -43,7 +35,7 @@ Give a ⭐️ if this project helped you!
 
 ## 📝 License
 
-Copyright © 2020 [Alexander Kadyrov](https://github.com/gruz0).<br />
+Copyright © 2018-2021 [Alexander Kadyrov](https://github.com/gruz0).<br />
 This project is [GPLv2](http://www.gnu.org/licenses/gpl-2.0.txt) licensed.
 
 ***

@@ -12,18 +12,18 @@ namespace Remove_Noreferrer\Frontend;
 /**
  * Test frontend/class-links-processor.php
  *
- * @coversDefaultClass \Remove_Noreferrer\Frontend\Links_Processor
+ * @coversDefaultClass Remove_Noreferrer\Frontend\Links_Processor
  * @group frontend
  */
 class Links_Processor_Test extends \PHPUnit\Framework\TestCase {
 	/**
-	 * Remove_Noreferrer\Frontend\Links_Processor instance
+	 * Links_Processor instance
 	 *
 	 * @since 2.0.0
 	 * @access private
-	 * @var Remove_Noreferrer\Frontend\Links_Processor $_processor
+	 * @var Links_Processor $processor
 	 */
-	private $_processor;
+	private $processor;
 
 	/**
 	 * Prepares environment
@@ -33,14 +33,14 @@ class Links_Processor_Test extends \PHPUnit\Framework\TestCase {
 	protected function setUp() {
 		parent::setUp();
 
-		$this->_processor = new Links_Processor();
+		$this->processor = new Links_Processor();
 	}
 
 	/**
 	 * @dataProvider data_call
 	 *
 	 * @covers ::call
-	 * @covers ::is_links_found
+	 * @covers ::are_links_found
 	 * @covers ::is_noreferrer_found
 	 * @covers ::remove_noreferrer
 	 * @covers ::remove_extra_spaces
@@ -55,7 +55,7 @@ class Links_Processor_Test extends \PHPUnit\Framework\TestCase {
 	 * @return void
 	 */
 	public function test_call( $input, $expected, $attribute_to_remove ) {
-		$result = $this->_processor->call( $input, $attribute_to_remove );
+		$result = $this->processor->call( $input, $attribute_to_remove );
 
 		$this->assertSame( $expected, $result );
 	}
