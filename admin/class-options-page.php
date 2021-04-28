@@ -153,7 +153,7 @@ class Options_Page {
 
 				<tr>
 					<th scope="row">
-						<?php _e( 'Additional attributes', 'remove-noreferrer' ); ?>
+						<?php esc_html_e( 'Additional attributes', 'remove-noreferrer' ); ?>
 					</th>
 					<td>
 						<fieldset>
