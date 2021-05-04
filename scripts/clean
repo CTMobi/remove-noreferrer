@@ -1,2 +1,3 @@
 #!/bin/bash
 rm -rf /home/zerounoweb/zerounoweb.it/public_html/wp-content/plugins/remove-noreferrer
+rm -rf /home/energyup/energyup.tech/public_html/wp-content/plugins/remove-noreferrer
