@@ -3,6 +3,8 @@ os: linux
 files:
   - source: /
     destination: /home/zerounoweb/zerounoweb.it/public_html/wp-content/plugins/remove-noreferrer
+  - source: /
+    destination: /home/energyup/energyup.tech/public_html/wp-content/plugins/remove-noreferrer
 hooks:
   BeforeInstall:
     - location: scripts/clean
