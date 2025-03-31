@@ -12,7 +12,7 @@
  * Plugin URI:        https://wordpress.org/plugins/remove-noreferrer/
  * Github URI:        https://github.com/gruz0/remove-noreferrer
  * Description:       Removes rel="noreferrer" attribute from links on your website on-the-fly. Fork di CTMobi, aggiunta opzione per rimuovere attributo target="_blank".
- * Version:           5.0.0
+ * Version:           5.0.1
  * Requires at least: 5.1
  * Requires PHP:      5.6
  * Author:            Alexander Kadyrov
