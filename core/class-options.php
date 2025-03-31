@@ -65,7 +65,7 @@ class Options {
 	 */
 	public function get_option( $key, $default = null ) {
 		if ( ! in_array( $key, $this->allowed_options_keys, true ) ) {
-			throw new \InvalidArgumentException( "Key ${key} does not exist" );
+			throw new \InvalidArgumentException( "Key {$key} does not exist" );
 		}
 
 		$this->set_options();
