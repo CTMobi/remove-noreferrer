@@ -30,6 +30,11 @@ jobs:
     - name: Install linters
       run: make setup
 
+    - name: Install Docker Compose
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y docker-compose
+
     # Prepare
     - name: Dockerize database
       run: make dockerize_test_database
