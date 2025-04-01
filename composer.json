@@ -15,7 +15,8 @@
 		"wp-coding-standards/wpcs": "*",
 		"phpcompatibility/php-compatibility": "*",
 		"phpcompatibility/phpcompatibility-wp": "*",
-		"phpcompatibility/phpcompatibility-paragonie": "*"
+		"phpcompatibility/phpcompatibility-paragonie": "*",
+		"dealerdirect/phpcodesniffer-composer-installer": "*"
 	},
 	"prefer-stable" : true,
 	"scripts": {
