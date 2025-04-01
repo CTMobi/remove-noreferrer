@@ -30,7 +30,7 @@ class Options_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 
 		$this->options = new Options();
@@ -46,7 +46,7 @@ class Options_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_get_options_returns_default_options_if_options_are_not_exist() {
+	public function test_get_options_returns_default_options_if_options_are_not_exist(): void {
 		delete_option( GRN_OPTION_KEY );
 
 		$options = array(
@@ -68,7 +68,7 @@ class Options_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_get_options_returns_existed_options() {
+	public function test_get_options_returns_existed_options(): void {
 		$options = array(
 			GRN_PLUGIN_VERSION_KEY               => '999.9.9',
 			GRN_WHERE_SHOULD_THE_PLUGIN_WORK_KEY => array( 'some' => 'value' ),
@@ -88,7 +88,7 @@ class Options_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_get_option_throws_invalid_argument_exception_if_key_is_not_allowed() {
+	public function test_get_option_throws_invalid_argument_exception_if_key_is_not_allowed(): void {
 		$this->setExpectedException( '\InvalidArgumentException', 'Key some_key does not exist' );
 
 		$this->options->get_option( 'some_key' );
@@ -104,7 +104,7 @@ class Options_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_get_option_returns_valid_option() {
+	public function test_get_option_returns_valid_option(): void {
 		update_option( GRN_OPTION_KEY, array( GRN_WHERE_SHOULD_THE_PLUGIN_WORK_KEY => array( 'page' ) ) );
 
 		$this->assertEquals( array( 'page' ), $this->options->get_option( GRN_WHERE_SHOULD_THE_PLUGIN_WORK_KEY ) );
@@ -118,7 +118,7 @@ class Options_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_update_options_did_remove_noreferrer_options_updated_action() {
+	public function test_update_options_did_remove_noreferrer_options_updated_action(): void {
 		$options = array( GRN_REMOVE_SETTINGS_ON_UNINSTALL_KEY => '1' );
 
 		$this->options->update_options( $options );
@@ -134,7 +134,7 @@ class Options_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_update_options_updates_options() {
+	public function test_update_options_updates_options(): void {
 		$options = array( GRN_REMOVE_SETTINGS_ON_UNINSTALL_KEY => '1' );
 
 		$this->options->update_options( $options );
@@ -150,7 +150,7 @@ class Options_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_delete_options_did_remove_noreferrer_options_deleted_action() {
+	public function test_delete_options_did_remove_noreferrer_options_deleted_action(): void {
 		$this->options->delete_options();
 
 		$this->assertGreaterThan( 0, did_action( 'remove_noreferrer_options_deleted' ) );
@@ -164,7 +164,7 @@ class Options_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_delete_options_deletes_existed_options() {
+	public function test_delete_options_deletes_existed_options(): void {
 		add_option( GRN_OPTION_KEY, array( GRN_REMOVE_SETTINGS_ON_UNINSTALL_KEY => '1' ) );
 
 		$this->options->delete_options();

@@ -53,7 +53,7 @@ class Plugin_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 
 		$options                    = new \Remove_Noreferrer\Core\Options();
@@ -71,7 +71,7 @@ class Plugin_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function tearDown() {
+	public function tearDown(): void {
 		parent::tearDown();
 
 		unset( $GLOBALS['screen'] );
@@ -86,7 +86,7 @@ class Plugin_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_plugin_extended_from_base_plugin() {
+	public function test_plugin_extended_from_base_plugin(): void {
 		$this->assertInstanceOf( '\Remove_Noreferrer\Base\Plugin', $this->plugin );
 	}
 
@@ -98,7 +98,7 @@ class Plugin_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_has_grn_parent_slug_constant() {
+	public function test_has_grn_parent_slug_constant(): void {
 		$this->assertSame( 'options-general.php', Plugin::GRN_PARENT_SLUG );
 	}
 
@@ -110,7 +110,7 @@ class Plugin_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_has_grn_menu_slug_constant() {
+	public function test_has_grn_menu_slug_constant(): void {
 		$this->assertSame( 'remove_noreferrer', Plugin::GRN_MENU_SLUG );
 	}
 
@@ -122,7 +122,7 @@ class Plugin_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_has_grn_nonce_value_constant() {
+	public function test_has_grn_nonce_value_constant(): void {
 		$this->assertSame( 'gruz0_remove_noreferrer_nonce', Plugin::GRN_NONCE_VALUE );
 	}
 
@@ -134,7 +134,7 @@ class Plugin_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_has_grn_nonce_action_constant() {
+	public function test_has_grn_nonce_action_constant(): void {
 		$this->assertSame( 'remove_noreferrer', Plugin::GRN_NONCE_ACTION );
 	}
 
@@ -147,7 +147,7 @@ class Plugin_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_did_remove_noreferrer_admin_plugin_loaded_action() {
+	public function test_did_remove_noreferrer_admin_plugin_loaded_action(): void {
 		$this->assertGreaterThan( 0, did_action( 'remove_noreferrer_admin_plugin_loaded' ) );
 	}
 
@@ -160,7 +160,7 @@ class Plugin_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_did_remove_noreferrer_admin_plugin_hooks_added_action() {
+	public function test_did_remove_noreferrer_admin_plugin_hooks_added_action(): void {
 		$this->assertGreaterThan( 0, did_action( 'remove_noreferrer_admin_plugin_hooks_added' ) );
 	}
 
@@ -173,7 +173,7 @@ class Plugin_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_has_admin_menu_action() {
+	public function test_has_admin_menu_action(): void {
 		$this->assertEquals( 10, has_action( 'admin_menu', array( $this->plugin, 'add_menu' ) ) );
 	}
 
@@ -186,7 +186,7 @@ class Plugin_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_has_admin_post_remove_noreferrer_update_options_action() {
+	public function test_has_admin_post_remove_noreferrer_update_options_action(): void {
 		$this->assertEquals(
 			10,
 			has_action(
@@ -206,7 +206,7 @@ class Plugin_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_plugin_renders_submenu_for_manage_options_capability() {
+	public function test_plugin_renders_submenu_for_manage_options_capability(): void {
 		global $submenu;
 		global $menu;
 
@@ -240,7 +240,7 @@ class Plugin_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_plugin_does_not_render_submenu_for_user_without_manage_options_capability() {
+	public function test_plugin_does_not_render_submenu_for_user_without_manage_options_capability(): void {
 		global $submenu;
 		global $menu;
 
@@ -269,7 +269,7 @@ class Plugin_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_update_options_throws_exception_when_user_does_not_have_manage_options_capability() {
+	public function test_update_options_throws_exception_when_user_does_not_have_manage_options_capability(): void {
 		$editor_user = self::factory()->user->create( array( 'role' => 'editor' ) );
 
 		wp_set_current_user( $editor_user );
@@ -291,7 +291,7 @@ class Plugin_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_update_options_throws_exception_when_nonce_is_not_set() {
+	public function test_update_options_throws_exception_when_nonce_is_not_set(): void {
 		$admin_user = self::factory()->user->create( array( 'role' => 'administrator' ) );
 
 		wp_set_current_user( $admin_user );
@@ -313,7 +313,7 @@ class Plugin_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_update_options_throws_exception_when_nonce_is_invalid() {
+	public function test_update_options_throws_exception_when_nonce_is_invalid(): void {
 		$admin_user = self::factory()->user->create( array( 'role' => 'administrator' ) );
 
 		wp_set_current_user( $admin_user );
@@ -337,7 +337,7 @@ class Plugin_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_update_options_throws_exception_if_no_options_given() {
+	public function test_update_options_throws_exception_if_no_options_given(): void {
 		$this->stubbed_adapter->method( 'wp_verify_nonce' )->willReturn( true );
 
 		$admin_user = self::factory()->user->create( array( 'role' => 'administrator' ) );
@@ -363,7 +363,7 @@ class Plugin_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_update_options_throws_exception_if_empty_options_given() {
+	public function test_update_options_throws_exception_if_empty_options_given(): void {
 		$this->stubbed_adapter->method( 'wp_verify_nonce' )->willReturn( true );
 
 		$admin_user = self::factory()->user->create( array( 'role' => 'administrator' ) );
@@ -399,7 +399,7 @@ class Plugin_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_update_options_did_remove_noreferrer_options_updated_action() {
+	public function test_update_options_did_remove_noreferrer_options_updated_action(): void {
 		$this->stubbed_adapter->method( 'wp_verify_nonce' )->willReturn( true );
 
 		$admin_user = self::factory()->user->create( array( 'role' => 'administrator' ) );
@@ -431,7 +431,7 @@ class Plugin_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_render_options_page() {
+	public function test_render_options_page(): void {
 		$this->stubbed_options_page->method( 'render' )->willReturn( 'content' );
 
 		ob_start();

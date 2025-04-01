@@ -30,7 +30,7 @@ class Options_Validator_Test extends \PHPUnit\Framework\TestCase {
 	 *
 	 * @return void
 	 */
-	protected function setUp() {
+	protected function setUp(): void {
 		parent::setUp();
 
 		$this->validator = new Options_Validator();
@@ -51,7 +51,7 @@ class Options_Validator_Test extends \PHPUnit\Framework\TestCase {
 	 *
 	 * @return void
 	 */
-	public function test_call_validates_where_should_the_plugin_work( $input, $expected ) {
+	public function test_call_validates_where_should_the_plugin_work( $input, $expected ): void {
 		$result = $this->validator->call( $input );
 
 		$this->assertSame( $expected, $result );
@@ -65,7 +65,7 @@ class Options_Validator_Test extends \PHPUnit\Framework\TestCase {
 	 *
 	 * @return array
 	 */
-	public function data_call_validates_where_should_the_plugin_work() {
+	public function data_call_validates_where_should_the_plugin_work(): array {
 		// phpcs:disable WordPress.Arrays.MultipleStatementAlignment.DoubleArrowNotAligned
 		return array(
 			'pass string instead of array' => array(
@@ -182,7 +182,7 @@ class Options_Validator_Test extends \PHPUnit\Framework\TestCase {
 	 *
 	 * @return void
 	 */
-	public function test_call_validates_remove_settings_on_uninstall( $input, $expected ) {
+	public function test_call_validates_remove_settings_on_uninstall( $input, $expected ): void {
 		$result = $this->validator->call( $input );
 
 		$this->assertSame( $expected, $result );
@@ -196,7 +196,7 @@ class Options_Validator_Test extends \PHPUnit\Framework\TestCase {
 	 *
 	 * @return array
 	 */
-	public function data_call_validates_remove_settings_on_uninstall() {
+	public function data_call_validates_remove_settings_on_uninstall(): array {
 		// phpcs:disable WordPress.Arrays.MultipleStatementAlignment.DoubleArrowNotAligned
 		return array(
 			'pass string instead of array' => array(

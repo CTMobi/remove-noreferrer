@@ -35,7 +35,7 @@ class Plugin_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 
 		$this->plugin = new Plugin( new Options() );
@@ -49,7 +49,7 @@ class Plugin_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function tearDown() {
+	public function tearDown(): void {
 		parent::tearDown();
 
 		unset( $GLOBALS['screen'] );
@@ -64,7 +64,7 @@ class Plugin_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_plugin_extended_from_base_plugin() {
+	public function test_plugin_extended_from_base_plugin(): void {
 		$this->assertInstanceOf( '\Remove_Noreferrer\Base\Plugin', $this->plugin );
 	}
 
@@ -76,7 +76,7 @@ class Plugin_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_did_remove_noreferrer_core_plugin_loaded_action() {
+	public function test_did_remove_noreferrer_core_plugin_loaded_action(): void {
 		$this->assertGreaterThan( 0, did_action( 'remove_noreferrer_core_plugin_loaded' ) );
 	}
 
@@ -90,7 +90,7 @@ class Plugin_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_activate_did_remove_noreferrer_core_plugin_activated_action_if_administrator() {
+	public function test_activate_did_remove_noreferrer_core_plugin_activated_action_if_administrator(): void {
 		$admin_user = self::factory()->user->create( array( 'role' => 'administrator' ) );
 
 		wp_set_current_user( $admin_user );
@@ -110,7 +110,7 @@ class Plugin_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_activate_did_not_remove_noreferrer_core_plugin_activated_action_if_non_administrator() {
+	public function test_activate_did_not_remove_noreferrer_core_plugin_activated_action_if_non_administrator(): void {
 		$editor_user = self::factory()->user->create( array( 'role' => 'editor' ) );
 
 		wp_set_current_user( $editor_user );
@@ -130,7 +130,7 @@ class Plugin_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_deactivate_did_remove_noreferrer_core_plugin_deactivated_action_if_administrator() {
+	public function test_deactivate_did_remove_noreferrer_core_plugin_deactivated_action_if_administrator(): void {
 		$admin_user = self::factory()->user->create( array( 'role' => 'administrator' ) );
 
 		wp_set_current_user( $admin_user );
@@ -150,7 +150,7 @@ class Plugin_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_deactivate_did_not_remove_noreferrer_core_plugin_deactivated_action_if_non_administrator() {
+	public function test_deactivate_did_not_remove_noreferrer_core_plugin_deactivated_action_if_non_administrator(): void {
 		$editor_user = self::factory()->user->create( array( 'role' => 'editor' ) );
 
 		wp_set_current_user( $editor_user );
@@ -174,7 +174,7 @@ class Plugin_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_uninstall_did_remove_noreferrer_core_plugin_uninstalled_action_if_administrator() {
+	public function test_uninstall_did_remove_noreferrer_core_plugin_uninstalled_action_if_administrator(): void {
 		$admin_user = self::factory()->user->create( array( 'role' => 'administrator' ) );
 
 		wp_set_current_user( $admin_user );
@@ -196,7 +196,7 @@ class Plugin_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_uninstall_did_not_remove_noreferrer_core_plugin_uninstalled_action_if_non_administrator() {
+	public function test_uninstall_did_not_remove_noreferrer_core_plugin_uninstalled_action_if_non_administrator(): void {
 		$editor_user = self::factory()->user->create( array( 'role' => 'editor' ) );
 
 		wp_set_current_user( $editor_user );
@@ -221,7 +221,7 @@ class Plugin_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_uninstall_did_remove_noreferrer_options_deleted_action_if_administrator() {
+	public function test_uninstall_did_remove_noreferrer_options_deleted_action_if_administrator(): void {
 		add_option( GRN_OPTION_KEY, array( GRN_REMOVE_SETTINGS_ON_UNINSTALL_KEY => '1' ) );
 
 		$admin_user = self::factory()->user->create( array( 'role' => 'administrator' ) );
@@ -247,7 +247,7 @@ class Plugin_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_uninstall_did_not_remove_noreferrer_options_deleted_action() {
+	public function test_uninstall_did_not_remove_noreferrer_options_deleted_action(): void {
 		add_option( GRN_OPTION_KEY, array( GRN_REMOVE_SETTINGS_ON_UNINSTALL_KEY => '0' ) );
 
 		$admin_user = self::factory()->user->create( array( 'role' => 'administrator' ) );

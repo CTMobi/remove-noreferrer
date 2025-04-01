@@ -20,7 +20,7 @@ class Remove_Noreferrer_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function tearDown() {
+	public function tearDown(): void {
 		parent::tearDown();
 
 		unset( $GLOBALS['screen'] );
@@ -35,7 +35,7 @@ class Remove_Noreferrer_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_has_grn_version_constant() {
+	public function test_has_grn_version_constant(): void {
 		$this->assertSame( '2.0.0', GRN_VERSION );
 	}
 
@@ -47,7 +47,7 @@ class Remove_Noreferrer_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_has_grn_option_key_constant() {
+	public function test_has_grn_option_key_constant(): void {
 		$this->assertSame( 'remove_noreferrer', GRN_OPTION_KEY );
 	}
 
@@ -59,7 +59,7 @@ class Remove_Noreferrer_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_has_grn_plugin_version_key_constant() {
+	public function test_has_grn_plugin_version_key_constant(): void {
 		$this->assertSame( 'plugin_version', GRN_PLUGIN_VERSION_KEY );
 	}
 
@@ -71,7 +71,7 @@ class Remove_Noreferrer_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_has_grn_where_should_the_plugin_work_key_constant() {
+	public function test_has_grn_where_should_the_plugin_work_key_constant(): void {
 		$this->assertSame( 'where_should_the_plugin_work', GRN_WHERE_SHOULD_THE_PLUGIN_WORK_KEY );
 	}
 }
