@@ -90,15 +90,15 @@ class Options_Page_Test extends \WP_UnitTestCase {
 
 		// General.
 		$this->assertEquals( __( 'General' ), $nodes[0]->textContent );
-		$this->assertContains( '/wp-admin/options-general.php?page=remove_noreferrer&tab=general', $nodes[0]->attributes[1]->textContent );
+		$this->assertStringContainsString( '/wp-admin/options-general.php?page=remove_noreferrer&tab=general', $nodes[0]->attributes[1]->textContent );
 
 		// Additional settings.
 		$this->assertEquals( __( 'Additional settings' ), $nodes[1]->textContent );
-		$this->assertContains( '/wp-admin/options-general.php?page=remove_noreferrer&tab=additional-settings', $nodes[1]->attributes[1]->textContent );
+		$this->assertStringContainsString( '/wp-admin/options-general.php?page=remove_noreferrer&tab=additional-settings', $nodes[1]->attributes[1]->textContent );
 
 		// Support.
 		$this->assertEquals( __( 'Support' ), $nodes[2]->textContent );
-		$this->assertContains( '/wp-admin/options-general.php?page=remove_noreferrer&tab=support', $nodes[2]->attributes[1]->textContent );
+		$this->assertStringContainsString( '/wp-admin/options-general.php?page=remove_noreferrer&tab=support', $nodes[2]->attributes[1]->textContent );
 
 		libxml_use_internal_errors( $internal_errors );
 	}

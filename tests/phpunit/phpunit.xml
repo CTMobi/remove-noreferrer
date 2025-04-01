@@ -1,41 +1,28 @@
-<phpunit
-	bootstrap="./bootstrap.php"
-	backupGlobals="false"
-	convertErrorsToExceptions="true"
-	convertNoticesToExceptions="true"
-	convertWarningsToExceptions="true"
-	beStrictAboutTestsThatDoNotTestAnything="false"
-	beStrictAboutCoversAnnotation="true"
-	forceCoversAnnotation="true"
-	executionOrder="random"
-	>
-	<testsuites>
-		<testsuite name="default">
-			<directory suffix="-test.php">./tests/</directory>
-		</testsuite>
-	</testsuites>
-	<filter>
-		<whitelist addUncoveredFilesFromWhitelist="true">
-			<directory suffix=".php">../../</directory>
-			<exclude>
-				<directory suffix="index.php">../../</directory>
-				<directory>../../assets</directory>
-				<directory>../../build</directory>
-				<directory>../../inc</directory>
-				<directory>../../phpcs</directory>
-				<directory>../../rulesets</directory>
-				<directory>../../svn</directory>
-				<directory>../../tests</directory>
-				<directory>../../vendor</directory>
-			</exclude>
-		</whitelist>
-	</filter>
-	<logging>
-		<log
-			type="coverage-html"
-			target="../../build/coverage"
-			lowUpperBound="50"
-			highLowerBound="90"
-		/>
-	</logging>
+<?xml version="1.0"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" bootstrap="./bootstrap.php" backupGlobals="false" convertErrorsToExceptions="true" convertNoticesToExceptions="true" convertWarningsToExceptions="true" beStrictAboutTestsThatDoNotTestAnything="false" beStrictAboutCoversAnnotation="true" forceCoversAnnotation="true" executionOrder="random" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd">
+  <coverage includeUncoveredFiles="true">
+    <include>
+      <directory suffix=".php">../../</directory>
+    </include>
+    <exclude>
+      <directory suffix="index.php">../../</directory>
+      <directory>../../assets</directory>
+      <directory>../../build</directory>
+      <directory>../../inc</directory>
+      <directory>../../phpcs</directory>
+      <directory>../../rulesets</directory>
+      <directory>../../svn</directory>
+      <directory>../../tests</directory>
+      <directory>../../vendor</directory>
+    </exclude>
+    <report>
+      <html outputDirectory="../../build/coverage" lowUpperBound="50" highLowerBound="90"/>
+    </report>
+  </coverage>
+  <testsuites>
+    <testsuite name="default">
+      <directory suffix="-test.php">./tests/</directory>
+    </testsuite>
+  </testsuites>
+  <logging/>
 </phpunit>
