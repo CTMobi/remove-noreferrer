@@ -7,6 +7,7 @@
 
 require_once __DIR__ . '/../../inc/autoloader.php';
 require_once __DIR__ . '/../../vendor/autoload.php';
+require_once __DIR__ . '/../../vendor/yoast/phpunit-polyfills/phpunitpolyfills-autoload.php';
 
 define( 'WP_TESTS_DIR', __DIR__ . '/../wordpress-dev/src/tests/phpunit/' );
 define( 'TEST_PLUGIN_FILE', __DIR__ . '/../../remove-noreferrer.php' );

@@ -16,7 +16,8 @@
 		"phpcompatibility/php-compatibility": "*",
 		"phpcompatibility/phpcompatibility-wp": "*",
 		"phpcompatibility/phpcompatibility-paragonie": "*",
-		"dealerdirect/phpcodesniffer-composer-installer": "*"
+		"dealerdirect/phpcodesniffer-composer-installer": "*",
+		"yoast/phpunit-polyfills": "^4.0"
 	},
 	"prefer-stable" : true,
 	"scripts": {
