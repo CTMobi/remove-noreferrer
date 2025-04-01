@@ -62,4 +62,3 @@ class Plugin_Test extends \PHPUnit\Framework\TestCase {
 // phpcs:disable Generic.Files.OneObjectStructurePerFile.MultipleFound
 class Demo_Plugin extends Plugin {}
 // phpcs:enable Generic.Files.OneObjectStructurePerFile.MultipleFound
-

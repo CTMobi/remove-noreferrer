@@ -76,4 +76,3 @@ abstract class Plugin {
 		return sprintf( '%s_%s', $this->stringified_class, $suffix );
 	}
 }
-

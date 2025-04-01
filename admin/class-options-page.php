@@ -95,7 +95,7 @@ class Options_Page {
 			$format = '<a class="nav-tab%s" href="%s">%s</a>';
 
 			// phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
-			echo sprintf( $format, esc_attr( $class ), esc_url( $url ), esc_html( $name ) );
+			printf( $format, esc_attr( $class ), esc_url( $url ), esc_html( $name ) );
 			// phpcs:enable WordPress.Security.EscapeOutput.OutputNotEscaped
 		}
 
@@ -371,4 +371,3 @@ class Options_Page {
 		<?php
 	}
 }
-

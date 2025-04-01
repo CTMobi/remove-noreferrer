@@ -75,4 +75,3 @@ class Remove_Noreferrer_Test extends \WP_UnitTestCase {
 		$this->assertSame( 'where_should_the_plugin_work', GRN_WHERE_SHOULD_THE_PLUGIN_WORK_KEY );
 	}
 }
-

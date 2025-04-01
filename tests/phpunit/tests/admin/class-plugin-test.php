@@ -443,4 +443,3 @@ class Plugin_Test extends \WP_UnitTestCase {
 		$this->assertEquals( 'content', $result );
 	}
 }
-

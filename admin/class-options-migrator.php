@@ -256,4 +256,3 @@ class Options_Migrator {
 		return $options;
 	}
 }
-

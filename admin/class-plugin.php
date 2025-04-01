@@ -227,4 +227,3 @@ class Plugin extends \Remove_Noreferrer\Base\Plugin {
 		// phpcs:enable WordPress.Security.NonceVerification.Recommended
 	}
 }
-
