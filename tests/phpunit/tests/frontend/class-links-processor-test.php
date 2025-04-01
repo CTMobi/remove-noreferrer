@@ -30,7 +30,7 @@ class Links_Processor_Test extends \PHPUnit\Framework\TestCase {
 	 *
 	 * @return void
 	 */
-	protected function setUp() {
+	protected function setUp(): void {
 		parent::setUp();
 
 		$this->processor = new Links_Processor();
@@ -54,7 +54,7 @@ class Links_Processor_Test extends \PHPUnit\Framework\TestCase {
 	 *
 	 * @return void
 	 */
-	public function test_call( $input, $expected, $attribute_to_remove ) {
+	public function test_call( $input, $expected, $attribute_to_remove ): void {
 		$result = $this->processor->call( $input, $attribute_to_remove );
 
 		$this->assertSame( $expected, $result );
@@ -68,7 +68,7 @@ class Links_Processor_Test extends \PHPUnit\Framework\TestCase {
 	 *
 	 * @return array
 	 */
-	public function data_call() {
+	public function data_call(): array {
 		// phpcs:disable WordPress.Arrays.MultipleStatementAlignment.DoubleArrowNotAligned
 		return array(
 			'no links found' => array(

@@ -39,7 +39,7 @@ class Options_Migrator_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 
 		$this->stubbed_options = $this
@@ -64,7 +64,7 @@ class Options_Migrator_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_call_did_remove_noreferrer_default_options_added_action_if_options_are_not_exist() {
+	public function test_call_did_remove_noreferrer_default_options_added_action_if_options_are_not_exist(): void {
 		$this->options_migrator->call( null );
 
 		$this->assertGreaterThan( 0, did_action( 'remove_noreferrer_default_options_added' ) );
@@ -85,7 +85,7 @@ class Options_Migrator_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_call_adds_default_options_if_options_are_not_exist() {
+	public function test_call_adds_default_options_if_options_are_not_exist(): void {
 		$this->stubbed_options->method( 'get_options' )->willReturn( $this->stubbed_options->get_default_options() );
 
 		$this->options_migrator->call( null );
@@ -114,7 +114,7 @@ class Options_Migrator_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_call_did_not_remove_noreferrer_options_migrated_action_if_options_are_not_found() {
+	public function test_call_did_not_remove_noreferrer_options_migrated_action_if_options_are_not_found(): void {
 		$this->options_migrator->call( null );
 
 		$this->assertEquals( 0, did_action( 'remove_noreferrer_options_migrated' ) );
@@ -138,7 +138,7 @@ class Options_Migrator_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_call_did_remove_noreferrer_current_version_is_equal_to_new_version_action_if_previous_version_is_equal_to_new_version() {
+	public function test_call_did_remove_noreferrer_current_version_is_equal_to_new_version_action_if_previous_version_is_equal_to_new_version(): void {
 		add_option( GRN_OPTION_KEY, array( GRN_PLUGIN_VERSION_KEY => GRN_VERSION ) );
 
 		$this->stubbed_options->method( 'get_options' )->willReturn( array( GRN_PLUGIN_VERSION_KEY => GRN_VERSION ) );
@@ -166,7 +166,7 @@ class Options_Migrator_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_call_did_not_remove_noreferrer_options_migrated_action_if_previous_version_is_equal_to_new_version() {
+	public function test_call_did_not_remove_noreferrer_options_migrated_action_if_previous_version_is_equal_to_new_version(): void {
 		add_option( GRN_OPTION_KEY, array( GRN_PLUGIN_VERSION_KEY => GRN_VERSION ) );
 
 		$this->stubbed_options->method( 'get_options' )->willReturn( array( GRN_PLUGIN_VERSION_KEY => GRN_VERSION ) );
@@ -194,7 +194,7 @@ class Options_Migrator_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_call_did_remove_noreferrer_current_version_is_higher_or_equal_than_new_version_action_if_previous_version_is_higher_than_new_version() {
+	public function test_call_did_remove_noreferrer_current_version_is_higher_or_equal_than_new_version_action_if_previous_version_is_higher_than_new_version(): void {
 		add_option( GRN_OPTION_KEY, array( GRN_PLUGIN_VERSION_KEY => '999.9.9' ) );
 
 		$this->stubbed_options->method( 'get_options' )->willReturn( array( GRN_PLUGIN_VERSION_KEY => '999.9.9' ) );
@@ -222,7 +222,7 @@ class Options_Migrator_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_call_did_not_remove_noreferrer_options_migrated_action_if_previous_version_is_higher_than_new_version() {
+	public function test_call_did_not_remove_noreferrer_options_migrated_action_if_previous_version_is_higher_than_new_version(): void {
 		add_option( GRN_OPTION_KEY, array( GRN_PLUGIN_VERSION_KEY => '999.9.9' ) );
 
 		$this->stubbed_options->method( 'get_options' )->willReturn( array( GRN_PLUGIN_VERSION_KEY => '999.9.9' ) );
@@ -255,7 +255,7 @@ class Options_Migrator_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_call_did_remove_noreferrer_options_migrated_action_if_previous_version_is_not_set() {
+	public function test_call_did_remove_noreferrer_options_migrated_action_if_previous_version_is_not_set(): void {
 		add_option( GRN_OPTION_KEY, array( GRN_REMOVE_SETTINGS_ON_UNINSTALL_KEY => '1' ) );
 
 		$this->stubbed_options->method( 'get_options' )->willReturn( array( GRN_WHERE_SHOULD_THE_PLUGIN_WORK_KEY => array() ) );
@@ -288,7 +288,7 @@ class Options_Migrator_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_call_did_remove_noreferrer_options_migrated_action_if_previous_version_is_empty() {
+	public function test_call_did_remove_noreferrer_options_migrated_action_if_previous_version_is_empty(): void {
 		add_option( GRN_OPTION_KEY, array( GRN_REMOVE_SETTINGS_ON_UNINSTALL_KEY => '1' ) );
 
 		$this->stubbed_options->method( 'get_options' )->willReturn( array( GRN_PLUGIN_VERSION_KEY => '' ) );
@@ -321,7 +321,7 @@ class Options_Migrator_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_call_did_remove_noreferrer_options_migrated_action_if_previous_version_is_lower_than_new_version() {
+	public function test_call_did_remove_noreferrer_options_migrated_action_if_previous_version_is_lower_than_new_version(): void {
 		add_option( GRN_OPTION_KEY, array( GRN_PLUGIN_VERSION_KEY => '1.2.0' ) );
 
 		$this->stubbed_options->method( 'get_options' )->willReturn( array( GRN_PLUGIN_VERSION_KEY => '1.2.0' ) );
@@ -354,7 +354,7 @@ class Options_Migrator_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_call_did_remove_noreferrer_options_updated_action_if_previous_version_is_lower_than_new_version() {
+	public function test_call_did_remove_noreferrer_options_updated_action_if_previous_version_is_lower_than_new_version(): void {
 		add_option( GRN_OPTION_KEY, array( GRN_PLUGIN_VERSION_KEY => '1.2.0' ) );
 
 		$this->stubbed_options->method( 'get_options' )->willReturn( array( GRN_PLUGIN_VERSION_KEY => '1.2.0' ) );
@@ -387,7 +387,7 @@ class Options_Migrator_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_call_removes_extra_options_after_migrations_applied() {
+	public function test_call_removes_extra_options_after_migrations_applied(): void {
 		$options = array(
 			GRN_WHERE_SHOULD_THE_PLUGIN_WORK_KEY => array( 'post' ),
 			'first'                              => 'value',
@@ -433,7 +433,7 @@ class Options_Migrator_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_call_did_remove_noreferrer_options_migrated_to_2_0_0_action() {
+	public function test_call_did_remove_noreferrer_options_migrated_to_2_0_0_action(): void {
 		add_option( GRN_OPTION_KEY, array( GRN_PLUGIN_VERSION_KEY => '1.2.0' ) );
 
 		$this->stubbed_options->method( 'get_options' )->willReturn( array( GRN_PLUGIN_VERSION_KEY => '1.2.0' ) );
@@ -466,7 +466,7 @@ class Options_Migrator_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_call_sets_plugin_version_to_the_latest() {
+	public function test_call_sets_plugin_version_to_the_latest(): void {
 		add_option( GRN_OPTION_KEY, array( GRN_REMOVE_SETTINGS_ON_UNINSTALL_KEY => '1' ) );
 
 		$this->options_migrator->call( GRN_VERSION );

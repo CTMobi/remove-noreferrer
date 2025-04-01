@@ -51,7 +51,7 @@ class Plugin_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 
 		$this->stubbed_options = $this
@@ -72,7 +72,7 @@ class Plugin_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function tearDown() {
+	public function tearDown(): void {
 		parent::tearDown();
 
 		unset( $GLOBALS['screen'] );
@@ -87,7 +87,7 @@ class Plugin_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_plugin_extended_from_base_plugin() {
+	public function test_plugin_extended_from_base_plugin(): void {
 		$this->assertInstanceOf( '\Remove_Noreferrer\Base\Plugin', $this->plugin );
 	}
 
@@ -99,7 +99,7 @@ class Plugin_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_did_remove_noreferrer_plugin_loaded_action() {
+	public function test_did_remove_noreferrer_plugin_loaded_action(): void {
 		$this->assertGreaterThan( 0, did_action( 'remove_noreferrer_plugin_loaded' ) );
 	}
 
@@ -121,7 +121,7 @@ class Plugin_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_run_returns_admin_plugin_on_admin_part() {
+	public function test_run_returns_admin_plugin_on_admin_part(): void {
 		$this->stubbed_adapter->method( 'is_admin' )->willReturn( true );
 
 		$this->assertInstanceOf( '\Remove_Noreferrer\Admin\Plugin', $this->plugin->run() );
@@ -138,7 +138,7 @@ class Plugin_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_run_returns_frontend_plugin_on_frontend_part() {
+	public function test_run_returns_frontend_plugin_on_frontend_part(): void {
 		$this->assertInstanceOf( '\Remove_Noreferrer\Frontend\Plugin', $this->plugin->run() );
 	}
 
@@ -160,7 +160,7 @@ class Plugin_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_run_did_remove_noreferrer_default_options_added_action_if_options_are_not_found() {
+	public function test_run_did_remove_noreferrer_default_options_added_action_if_options_are_not_found(): void {
 		$this->stubbed_adapter->method( 'is_admin' )->willReturn( true );
 
 		delete_option( GRN_OPTION_KEY );
@@ -196,7 +196,7 @@ class Plugin_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_run_did_remove_noreferrer_options_migrated_action_on_admin_area_if_migrations_needed() {
+	public function test_run_did_remove_noreferrer_options_migrated_action_on_admin_area_if_migrations_needed(): void {
 		$this->stubbed_adapter->method( 'is_admin' )->willReturn( true );
 
 		add_option( GRN_OPTION_KEY, array( GRN_REMOVE_SETTINGS_ON_UNINSTALL_KEY => '1' ) );
@@ -217,7 +217,7 @@ class Plugin_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_run_did_not_remove_noreferrer_options_migration_started_action_on_frontend_area() {
+	public function test_run_did_not_remove_noreferrer_options_migration_started_action_on_frontend_area(): void {
 		$this->plugin->run();
 
 		$this->assertEquals( 0, did_action( 'remove_noreferrer_options_migration_started' ) );
@@ -234,7 +234,7 @@ class Plugin_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_run_did_not_remove_noreferrer_options_migrated_action_on_frontend_area() {
+	public function test_run_did_not_remove_noreferrer_options_migrated_action_on_frontend_area(): void {
 		$this->plugin->run();
 
 		$this->assertEquals( 0, did_action( 'remove_noreferrer_options_migrated' ) );
