@@ -103,7 +103,7 @@ class Links_Processor {
 	 */
 	private static function remove_noreferrer( $input ) {
 		// phpcs:disable Squiz.Commenting.InlineComment.InvalidEndChar
-		$replace = function( $matches ) {
+		$replace = function ( $matches ) {
 			// For input string '<a class="test"   rel="nofollow noreferrer" name="test">test</a>' it returns:
 			return sprintf(
 				'%s%s%s%s%s%s',
@@ -135,7 +135,7 @@ class Links_Processor {
 	 */
 	private static function remove_target_blank( $input ) {
 		// phpcs:disable Squiz.Commenting.InlineComment.InvalidEndChar
-		$replace = function( $matches ) {
+		$replace = function ( $matches ) {
 			// For input string '<a class="test"   target="_blank" name="test">test</a>' it returns:
 			return sprintf(
 				'%s%s%s%s%s%s',

@@ -138,4 +138,3 @@ class Adapter_Test extends \WP_UnitTestCase {
 		$this->assertFalse( $this->adapter->is_page() );
 	}
 }
-

@@ -261,4 +261,3 @@ class Plugin_Test extends \WP_UnitTestCase {
 		wp_delete_user( $admin_user );
 	}
 }
-

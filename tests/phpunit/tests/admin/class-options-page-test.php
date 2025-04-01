@@ -534,4 +534,3 @@ class Options_Page_Test extends \WP_UnitTestCase {
 		return preg_match( $regex, $content );
 	}
 }
-

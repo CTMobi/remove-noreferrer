@@ -75,7 +75,7 @@ class Options_Validator {
 		$result = array_unique(
 			array_filter(
 				array_map( 'trim', $input[ GRN_WHERE_SHOULD_THE_PLUGIN_WORK_KEY ] ),
-				function( $v ) {
+				function ( $v ) {
 					return in_array( $v, self::allowed_values(), true );
 				}
 			)
@@ -125,4 +125,3 @@ class Options_Validator {
 		);
 	}
 }
-

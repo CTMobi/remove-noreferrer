@@ -89,4 +89,3 @@ class Adapter {
 		exit();
 	}
 }
-

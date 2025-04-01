@@ -172,4 +172,3 @@ class Options_Test extends \WP_UnitTestCase {
 		$this->assertEquals( false, get_option( GRN_OPTION_KEY ) );
 	}
 }
-

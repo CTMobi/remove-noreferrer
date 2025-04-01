@@ -174,7 +174,6 @@ class Options_Migrator_Test extends \WP_UnitTestCase {
 		$this->options_migrator->call( GRN_VERSION );
 
 		$this->assertEquals( 0, did_action( 'remove_noreferrer_options_migrated' ) );
-
 	}
 
 	/**
@@ -478,4 +477,3 @@ class Options_Migrator_Test extends \WP_UnitTestCase {
 		$this->assertEquals( '2.0.0', $new_options[ GRN_PLUGIN_VERSION_KEY ] );
 	}
 }
-

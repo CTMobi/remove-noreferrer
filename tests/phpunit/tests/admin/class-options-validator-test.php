@@ -236,4 +236,3 @@ class Options_Validator_Test extends \PHPUnit\Framework\TestCase {
 		// phpcs:enable WordPress.Arrays.MultipleStatementAlignment.DoubleArrowNotAligned
 	}
 }
-

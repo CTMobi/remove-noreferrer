@@ -240,4 +240,3 @@ class Plugin_Test extends \WP_UnitTestCase {
 		$this->assertEquals( 0, did_action( 'remove_noreferrer_options_migrated' ) );
 	}
 }
-
