@@ -58,19 +58,19 @@ class Options {
 	 * @access public
 	 *
 	 * @param string $key Option's key.
-	 * @param mixed  $default Default option's value.
+	 * @param mixed  $default_value Default option's value.
 	 *
 	 * @return mixed
 	 * @throws \InvalidArgumentException If key does not exist.
 	 */
-	public function get_option( $key, $default = null ) {
+	public function get_option( $key, $default_value = null ) {
 		if ( ! in_array( $key, $this->allowed_options_keys, true ) ) {
-			throw new \InvalidArgumentException( "Key ${key} does not exist" );
+			throw new \InvalidArgumentException( esc_html( "Key {$key} does not exist" ) );
 		}
 
 		$this->set_options();
 
-		return ( ! empty( $this->options[ $key ] ) ) ? $this->options[ $key ] : $default;
+		return ( ! empty( $this->options[ $key ] ) ) ? $this->options[ $key ] : $default_value;
 	}
 
 	/**
@@ -125,4 +125,3 @@ class Options {
 		$this->options = get_option( GRN_OPTION_KEY, $this->get_default_options() );
 	}
 }
-

@@ -33,7 +33,7 @@ class Adapter_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 
 		$this->adapter = new Adapter();
@@ -47,7 +47,7 @@ class Adapter_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function tearDown() {
+	public function tearDown(): void {
 		parent::tearDown();
 
 		unset( $GLOBALS['screen'] );
@@ -65,7 +65,7 @@ class Adapter_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_is_admin() {
+	public function test_is_admin(): void {
 		set_current_screen( 'dashboard' );
 
 		$this->assertTrue( $this->adapter->is_admin() );
@@ -85,7 +85,7 @@ class Adapter_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_is_single() {
+	public function test_is_single(): void {
 		$post = $this->factory->post->create();
 
 		$this->go_to( '?p=' . $post );
@@ -107,7 +107,7 @@ class Adapter_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_is_page() {
+	public function test_is_page(): void {
 		$page = $this->factory->post->create( array( 'post_type' => 'page' ) );
 
 		$this->go_to( '?page_id=' . $page );
@@ -129,7 +129,7 @@ class Adapter_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_is_posts_page() {
+	public function test_is_posts_page(): void {
 		$this->go_to( '/' );
 
 		$this->assertTrue( $this->adapter->is_posts_page() );
@@ -138,4 +138,3 @@ class Adapter_Test extends \WP_UnitTestCase {
 		$this->assertFalse( $this->adapter->is_page() );
 	}
 }
-

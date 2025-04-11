@@ -56,7 +56,7 @@ class Plugin_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 
 		set_current_screen( 'front' );
@@ -75,7 +75,7 @@ class Plugin_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function tearDown() {
+	public function tearDown(): void {
 		parent::tearDown();
 
 		unset( $GLOBALS['screen'] );
@@ -90,7 +90,7 @@ class Plugin_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_plugin_extended_from_base_plugin() {
+	public function test_plugin_extended_from_base_plugin(): void {
 		$this->assertInstanceOf( '\Remove_Noreferrer\Base\Plugin', $this->plugin );
 	}
 
@@ -103,7 +103,7 @@ class Plugin_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_did_remove_noreferrer_frontend_plugin_loaded_action() {
+	public function test_did_remove_noreferrer_frontend_plugin_loaded_action(): void {
 		$this->assertGreaterThan( 0, did_action( 'remove_noreferrer_frontend_plugin_loaded' ) );
 	}
 
@@ -116,7 +116,7 @@ class Plugin_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_did_remove_noreferrer_frontend_plugin_hooks_added_action() {
+	public function test_did_remove_noreferrer_frontend_plugin_hooks_added_action(): void {
 		$this->assertGreaterThan( 0, did_action( 'remove_noreferrer_frontend_plugin_hooks_added' ) );
 	}
 
@@ -129,7 +129,7 @@ class Plugin_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_has_the_content_filter() {
+	public function test_has_the_content_filter(): void {
 		$this->assertEquals( 999, has_filter( 'the_content', array( $this->plugin, 'remove_noreferrer_from_content' ) ) );
 	}
 
@@ -142,7 +142,7 @@ class Plugin_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_has_comment_text_filter() {
+	public function test_has_comment_text_filter(): void {
 		$this->assertEquals( 20, has_filter( 'comment_text', array( $this->plugin, 'remove_noreferrer_from_comment' ) ) );
 	}
 
@@ -155,7 +155,7 @@ class Plugin_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_has_widget_display_callback_filter() {
+	public function test_has_widget_display_callback_filter(): void {
 		$this->assertEquals( 10, has_filter( 'widget_display_callback', array( $this->plugin, 'remove_noreferrer_from_widgets' ) ) );
 	}
 
@@ -171,7 +171,7 @@ class Plugin_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_remove_noreferrer_from_content_returns_original_if_option_value_is_not_an_array() {
+	public function test_remove_noreferrer_from_content_returns_original_if_option_value_is_not_an_array(): void {
 		$this->stub_get_option_key_with( GRN_WHERE_SHOULD_THE_PLUGIN_WORK_KEY, 123 );
 
 		$result = $this->plugin->remove_noreferrer_from_content( self::CONTENT );
@@ -191,7 +191,7 @@ class Plugin_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_remove_noreferrer_from_content_returns_original_if_option_value_is_an_empty_array() {
+	public function test_remove_noreferrer_from_content_returns_original_if_option_value_is_an_empty_array(): void {
 		$this->stub_get_option_key_with( GRN_WHERE_SHOULD_THE_PLUGIN_WORK_KEY, array() );
 
 		$result = $this->plugin->remove_noreferrer_from_content( self::CONTENT );
@@ -215,7 +215,7 @@ class Plugin_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_remove_noreferrer_from_content_returns_original_if_current_page_is_not_allowed() {
+	public function test_remove_noreferrer_from_content_returns_original_if_current_page_is_not_allowed(): void {
 		$this->stub_get_option_key_with( GRN_WHERE_SHOULD_THE_PLUGIN_WORK_KEY, array( 'post' ) );
 
 		$this->stubbed_adapter->method( 'is_single' )->willReturn( false );
@@ -247,7 +247,7 @@ class Plugin_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_remove_noreferrer_from_content_removes_noreferrer_from_single_post() {
+	public function test_remove_noreferrer_from_content_removes_noreferrer_from_single_post(): void {
 		$this->stub_get_option_key_with( GRN_WHERE_SHOULD_THE_PLUGIN_WORK_KEY, array( 'post' ) );
 
 		$this->stubbed_adapter->method( 'is_single' )->willReturn( true );
@@ -278,7 +278,7 @@ class Plugin_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_remove_noreferrer_from_content_removes_noreferrer_from_page() {
+	public function test_remove_noreferrer_from_content_removes_noreferrer_from_page(): void {
 		$this->stub_get_option_key_with( GRN_WHERE_SHOULD_THE_PLUGIN_WORK_KEY, array( 'page' ) );
 
 		$this->stubbed_adapter->method( 'is_page' )->willReturn( true );
@@ -310,7 +310,7 @@ class Plugin_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_remove_noreferrer_from_content_removes_noreferrer_from_posts_page() {
+	public function test_remove_noreferrer_from_content_removes_noreferrer_from_posts_page(): void {
 		$this->stub_get_option_key_with( GRN_WHERE_SHOULD_THE_PLUGIN_WORK_KEY, array( 'posts_page' ) );
 
 		$this->stubbed_adapter->method( 'is_posts_page' )->willReturn( true );
@@ -332,7 +332,7 @@ class Plugin_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_remove_noreferrer_from_comment_returns_original_if_option_value_is_not_an_array() {
+	public function test_remove_noreferrer_from_comment_returns_original_if_option_value_is_not_an_array(): void {
 		$this->stub_get_option_key_with( GRN_WHERE_SHOULD_THE_PLUGIN_WORK_KEY, 123 );
 
 		$result = $this->plugin->remove_noreferrer_from_comment( self::CONTENT );
@@ -352,7 +352,7 @@ class Plugin_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_remove_noreferrer_from_comment_returns_original_if_option_value_is_an_empty_array() {
+	public function test_remove_noreferrer_from_comment_returns_original_if_option_value_is_an_empty_array(): void {
 		$this->stub_get_option_key_with( GRN_WHERE_SHOULD_THE_PLUGIN_WORK_KEY, array() );
 
 		$result = $this->plugin->remove_noreferrer_from_comment( self::CONTENT );
@@ -373,7 +373,7 @@ class Plugin_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_remove_noreferrer_from_comment_returns_original_if_comments_are_not_processable() {
+	public function test_remove_noreferrer_from_comment_returns_original_if_comments_are_not_processable(): void {
 		$this->stub_get_option_key_with( GRN_WHERE_SHOULD_THE_PLUGIN_WORK_KEY, array( 'test' ) );
 
 		$result = $this->plugin->remove_noreferrer_from_comment( self::CONTENT );
@@ -400,7 +400,7 @@ class Plugin_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_remove_noreferrer_from_comment_removes_noreferrer() {
+	public function test_remove_noreferrer_from_comment_removes_noreferrer(): void {
 		$this->stub_get_option_key_with( GRN_WHERE_SHOULD_THE_PLUGIN_WORK_KEY, array( 'comments' ) );
 
 		$result = $this->plugin->remove_noreferrer_from_comment( self::CONTENT );
@@ -420,7 +420,7 @@ class Plugin_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_remove_noreferrer_from_widgets_returns_original_if_option_value_is_not_an_array() {
+	public function test_remove_noreferrer_from_widgets_returns_original_if_option_value_is_not_an_array(): void {
 		$this->stub_get_option_key_with( GRN_WHERE_SHOULD_THE_PLUGIN_WORK_KEY, 123 );
 
 		$instance = $this->get_text_widget_instance();
@@ -444,7 +444,7 @@ class Plugin_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_remove_noreferrer_from_widgets_returns_original_if_option_value_is_an_empty_array() {
+	public function test_remove_noreferrer_from_widgets_returns_original_if_option_value_is_an_empty_array(): void {
 		$this->stub_get_option_key_with( GRN_WHERE_SHOULD_THE_PLUGIN_WORK_KEY, array() );
 
 		$instance = $this->get_text_widget_instance();
@@ -470,7 +470,7 @@ class Plugin_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_remove_noreferrer_from_widgets_returns_original_if_widget_is_not_supported() {
+	public function test_remove_noreferrer_from_widgets_returns_original_if_widget_is_not_supported(): void {
 		$this->stub_get_option_key_with( GRN_WHERE_SHOULD_THE_PLUGIN_WORK_KEY, array( 'text_widget' ) );
 
 		$instance = $this->get_text_widget_instance();
@@ -496,7 +496,7 @@ class Plugin_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_remove_noreferrer_from_widgets_returns_original_if_widget_is_not_in_options() {
+	public function test_remove_noreferrer_from_widgets_returns_original_if_widget_is_not_in_options(): void {
 		$this->stub_get_option_key_with( GRN_WHERE_SHOULD_THE_PLUGIN_WORK_KEY, array( 'custom_html_widget' ) );
 
 		$instance = $this->get_text_widget_instance();
@@ -528,7 +528,7 @@ class Plugin_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_remove_noreferrer_from_widgets_returns_false_for_effectively_short_circuit_display_of_the_widget() {
+	public function test_remove_noreferrer_from_widgets_returns_false_for_effectively_short_circuit_display_of_the_widget(): void {
 		$this->stub_get_option_key_with( GRN_WHERE_SHOULD_THE_PLUGIN_WORK_KEY, array( 'text_widget' ) );
 
 		$instance = $this->get_text_widget_instance();
@@ -564,7 +564,7 @@ class Plugin_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_remove_noreferrer_from_widgets_removes_noreferrer_from_text_widget() {
+	public function test_remove_noreferrer_from_widgets_removes_noreferrer_from_text_widget(): void {
 		$this->stub_get_option_key_with( GRN_WHERE_SHOULD_THE_PLUGIN_WORK_KEY, array( 'text_widget' ) );
 
 		$instance = $this->get_text_widget_instance();
@@ -600,7 +600,7 @@ class Plugin_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_remove_noreferrer_from_widgets_removes_noreferrer_from_custom_html_widget() {
+	public function test_remove_noreferrer_from_widgets_removes_noreferrer_from_custom_html_widget(): void {
 		$this->stub_get_option_key_with( GRN_WHERE_SHOULD_THE_PLUGIN_WORK_KEY, array( 'custom_html_widget' ) );
 
 		$instance = array(
@@ -628,7 +628,7 @@ class Plugin_Test extends \WP_UnitTestCase {
 	 * @param string $key   Option's key.
 	 * @param mixed  $value Stubbed value.
 	 */
-	private function stub_get_option_key_with( $key, $value ) {
+	private function stub_get_option_key_with( $key, $value ): void {
 		$this->stubbed_options->method( 'get_option' )
 			->with( $key )
 			->willReturn( $value );
@@ -644,7 +644,7 @@ class Plugin_Test extends \WP_UnitTestCase {
 	 *
 	 * @return array
 	 */
-	private function get_text_widget_instance() {
+	private function get_text_widget_instance(): array {
 		return array(
 			'title'  => '',
 			'text'   => self::CONTENT,
@@ -663,7 +663,7 @@ class Plugin_Test extends \WP_UnitTestCase {
 	 *
 	 * @return array
 	 */
-	private function get_widget_default_args() {
+	private function get_widget_default_args(): array {
 		return array(
 			'before_widget' => '',
 			'after_widget'  => '',
@@ -671,4 +671,3 @@ class Plugin_Test extends \WP_UnitTestCase {
 		);
 	}
 }
-

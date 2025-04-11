@@ -66,4 +66,3 @@ class Plugin extends \Remove_Noreferrer\Base\Plugin {
 		do_action( 'remove_noreferrer_core_plugin_uninstalled' );
 	}
 }
-

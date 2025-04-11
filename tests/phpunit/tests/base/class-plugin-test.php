@@ -25,7 +25,7 @@ class Plugin_Test extends \PHPUnit\Framework\TestCase {
 	 *
 	 * @return void
 	 */
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 
 		$this->plugin = new Demo_Plugin();
@@ -39,7 +39,7 @@ class Plugin_Test extends \PHPUnit\Framework\TestCase {
 	 *
 	 * @return void
 	 */
-	public function test_plugin_extended_from_base_plugin() {
+	public function test_plugin_extended_from_base_plugin(): void {
 		$this->assertInstanceOf( '\Remove_Noreferrer\Base\Plugin', $this->plugin );
 	}
 
@@ -54,7 +54,7 @@ class Plugin_Test extends \PHPUnit\Framework\TestCase {
 	 *
 	 * @return void
 	 */
-	public function test_construct_did_remove_noreferrer_base_demo_plugin_loaded_action() {
+	public function test_construct_did_remove_noreferrer_base_demo_plugin_loaded_action(): void {
 		$this->assertGreaterThan( 0, did_action( 'remove_noreferrer_base_demo_plugin_loaded' ) );
 	}
 }
@@ -62,4 +62,3 @@ class Plugin_Test extends \PHPUnit\Framework\TestCase {
 // phpcs:disable Generic.Files.OneObjectStructurePerFile.MultipleFound
 class Demo_Plugin extends Plugin {}
 // phpcs:enable Generic.Files.OneObjectStructurePerFile.MultipleFound
-

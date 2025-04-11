@@ -42,7 +42,7 @@ class Options_Page_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 
 		$this->options = array(
@@ -76,7 +76,7 @@ class Options_Page_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_render_tabs_has_valid_tabs() {
+	public function test_render_tabs_has_valid_tabs(): void {
 		$content = $this->options_page->render( $this->options, 'general' );
 
 		$internal_errors = libxml_use_internal_errors( true );
@@ -90,15 +90,15 @@ class Options_Page_Test extends \WP_UnitTestCase {
 
 		// General.
 		$this->assertEquals( __( 'General' ), $nodes[0]->textContent );
-		$this->assertContains( '/wp-admin/options-general.php?page=remove_noreferrer&tab=general', $nodes[0]->attributes[1]->textContent );
+		$this->assertStringContainsString( '/wp-admin/options-general.php?page=remove_noreferrer&tab=general', $nodes[0]->attributes[1]->textContent );
 
 		// Additional settings.
 		$this->assertEquals( __( 'Additional settings' ), $nodes[1]->textContent );
-		$this->assertContains( '/wp-admin/options-general.php?page=remove_noreferrer&tab=additional-settings', $nodes[1]->attributes[1]->textContent );
+		$this->assertStringContainsString( '/wp-admin/options-general.php?page=remove_noreferrer&tab=additional-settings', $nodes[1]->attributes[1]->textContent );
 
 		// Support.
 		$this->assertEquals( __( 'Support' ), $nodes[2]->textContent );
-		$this->assertContains( '/wp-admin/options-general.php?page=remove_noreferrer&tab=support', $nodes[2]->attributes[1]->textContent );
+		$this->assertStringContainsString( '/wp-admin/options-general.php?page=remove_noreferrer&tab=support', $nodes[2]->attributes[1]->textContent );
 
 		libxml_use_internal_errors( $internal_errors );
 	}
@@ -119,7 +119,7 @@ class Options_Page_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_render_h1_tag() {
+	public function test_render_h1_tag(): void {
 		$content = $this->options_page->render( $this->options, 'general' );
 
 		$this->assertTrue( false !== preg_match( '/<h1>Remove Noreferrer<\/h1>/', $content ) );
@@ -141,7 +141,7 @@ class Options_Page_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_render_general_tab_has_hidden_nonce_field() {
+	public function test_render_general_tab_has_hidden_nonce_field(): void {
 		$content = $this->options_page->render( $this->options, 'general' );
 
 		$nonce = 'gruz0_remove_noreferrer_nonce';
@@ -166,7 +166,7 @@ class Options_Page_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_render_general_tab_has_hidden_action_field() {
+	public function test_render_general_tab_has_hidden_action_field(): void {
 		$content = $this->options_page->render( $this->options, 'general' );
 
 		$found = preg_match( '/<input type="hidden" name="action" value="remove_noreferrer_update_options" \/>/', $content );
@@ -190,7 +190,7 @@ class Options_Page_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_render_general_tab_has_hidden_grn_tab_field() {
+	public function test_render_general_tab_has_hidden_grn_tab_field(): void {
 		$content = $this->options_page->render( $this->options, 'general' );
 
 		$found = preg_match( '/<input type="hidden" name="remove_noreferrer\[grn_tab\]" value="general" \/>/', $content );
@@ -214,7 +214,7 @@ class Options_Page_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_render_general_tab_has_valid_checkboxes_count() {
+	public function test_render_general_tab_has_valid_checkboxes_count(): void {
 		$content = $this->options_page->render( $this->options, 'general' );
 
 		$matches = array();
@@ -237,7 +237,7 @@ class Options_Page_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_checkboxes_where_should_the_plugin_work( $input, $expected ) {
+	public function test_checkboxes_where_should_the_plugin_work( $input, $expected ): void {
 		$this->assertEquals( $expected, $input );
 	}
 
@@ -249,7 +249,7 @@ class Options_Page_Test extends \WP_UnitTestCase {
 	 *
 	 * @return array
 	 */
-	public function data_checkboxes_for_where_should_the_plugin_work() {
+	public function data_checkboxes_for_where_should_the_plugin_work(): array {
 		return array(
 			'checked post'                 => array( $this->find_checked_checkbox_where_should_the_plugin_work( 'post', __( 'Post' ) ), 1 ),
 			'unchecked post'               => array( $this->find_unchecked_checkbox_where_should_the_plugin_work( 'post', __( 'Post' ) ), 1 ),
@@ -275,9 +275,9 @@ class Options_Page_Test extends \WP_UnitTestCase {
 	 * @param string $value Checkbox value.
 	 * @param string $label Label.
 	 *
-	 * @return mixed
+	 * @return bool|int
 	 */
-	private function find_checked_checkbox_where_should_the_plugin_work( $value, $label ) {
+	private function find_checked_checkbox_where_should_the_plugin_work( $value, $label ): bool|int {
 		$options = array(
 			'where_should_the_plugin_work' => array(
 				'post',
@@ -305,9 +305,9 @@ class Options_Page_Test extends \WP_UnitTestCase {
 	 * @param string $value Checkbox value.
 	 * @param string $label Label.
 	 *
-	 * @return mixed
+	 * @return bool|int
 	 */
-	private function find_unchecked_checkbox_where_should_the_plugin_work( $value, $label ) {
+	private function find_unchecked_checkbox_where_should_the_plugin_work( $value, $label ): bool|int {
 		$options = array(
 			'where_should_the_plugin_work' => array(
 				'post',
@@ -344,7 +344,7 @@ class Options_Page_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_render_additional_settings_tab_has_hidden_nonce_field() {
+	public function test_render_additional_settings_tab_has_hidden_nonce_field(): void {
 		$content = $this->options_page->render( $this->options, 'additional-settings' );
 
 		$nonce = 'gruz0_remove_noreferrer_nonce';
@@ -369,7 +369,7 @@ class Options_Page_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_render_additional_settings_tab_has_hidden_action_field() {
+	public function test_render_additional_settings_tab_has_hidden_action_field(): void {
 		$content = $this->options_page->render( $this->options, 'additional-settings' );
 
 		$found = preg_match( '/<input type="hidden" name="action" value="remove_noreferrer_update_options" \/>/', $content );
@@ -394,7 +394,7 @@ class Options_Page_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_render_additional_settings_tab_has_hidden_grn_tab_field() {
+	public function test_render_additional_settings_tab_has_hidden_grn_tab_field(): void {
 		$content = $this->options_page->render( $this->options, 'additional-settings' );
 
 		$found = preg_match( '/<input type="hidden" name="remove_noreferrer\[grn_tab\]" value="additional-settings" \/>/', $content );
@@ -418,7 +418,7 @@ class Options_Page_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_render_additional_settings_tab_has_valid_checkboxes_count() {
+	public function test_render_additional_settings_tab_has_valid_checkboxes_count(): void {
 		$content = $this->options_page->render( $this->options, 'additional-settings' );
 
 		$matches = array();
@@ -441,7 +441,7 @@ class Options_Page_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_checkboxes_additional_settings( $input, $expected ) {
+	public function test_checkboxes_additional_settings( $input, $expected ): void {
 		$this->assertEquals( $expected, $input );
 	}
 
@@ -453,7 +453,7 @@ class Options_Page_Test extends \WP_UnitTestCase {
 	 *
 	 * @return array
 	 */
-	public function data_checkboxes_for_additional_settings() {
+	public function data_checkboxes_for_additional_settings(): array {
 		return array(
 			'checked remove settings'   => array( $this->find_checked_checkbox_remove_settings_on_uninstall(), 1 ),
 			'unchecked remove settings' => array( $this->find_unchecked_checkbox_remove_settings_on_uninstall(), 1 ),
@@ -471,7 +471,7 @@ class Options_Page_Test extends \WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function test_render_support_tab() {
+	public function test_render_support_tab(): void {
 		$content = $this->options_page->render( $this->options, 'support' );
 
 		$found = preg_match( '/alexander@kadyrov.dev/', $content );
@@ -485,9 +485,9 @@ class Options_Page_Test extends \WP_UnitTestCase {
 	 * @since 2.0.0
 	 * @access private
 	 *
-	 * @return mixed
+	 * @return bool|int
 	 */
-	private function find_checked_checkbox_remove_settings_on_uninstall() {
+	private function find_checked_checkbox_remove_settings_on_uninstall(): bool|int {
 		$options = array( 'remove_settings_on_uninstall' => '1' );
 
 		$content = ( new Options_Page() )->render( $options, 'additional-settings' );
@@ -503,9 +503,9 @@ class Options_Page_Test extends \WP_UnitTestCase {
 	 * @since 2.0.0
 	 * @access private
 	 *
-	 * @return mixed
+	 * @return bool|int
 	 */
-	private function find_unchecked_checkbox_remove_settings_on_uninstall() {
+	private function find_unchecked_checkbox_remove_settings_on_uninstall(): bool|int {
 		$options = array( 'remove_settings_on_uninstall' => '0' );
 
 		$content = ( new Options_Page() )->render( $options, 'additional-settings' );
@@ -525,13 +525,12 @@ class Options_Page_Test extends \WP_UnitTestCase {
 	 * @param string $label Label.
 	 * @param string $checked Checked attribute.
 	 *
-	 * @return mixed
+	 * @return bool|int
 	 */
-	private function regex_match( $content, $key, $value, $label, $checked ) {
+	private function regex_match( $content, $key, $value, $label, $checked ): bool|int {
 		$regex = '/<label>\s+<input\s+type="checkbox"\s+name="remove_noreferrer%s"\s+value="%s"\s+%s\s+\/>\s+%s\s+<\/label>/';
 		$regex = sprintf( $regex, $key, $value, $checked, $label );
 
 		return preg_match( $regex, $content );
 	}
 }
-
